@@ -3,19 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfólio Profissional</title>
+  <title>Seu Nome — Data Science & Deep Learning</title>
+
+  <!-- Fontes modernas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
 :root {
   --bg: #050816;
   --bg-alt: #0b1020;
-  --card: #111827;
+  --card: #020617;
   --accent: #38bdf8;
   --accent-soft: rgba(56, 189, 248, 0.12);
+  --accent-strong: #6366f1;
   --text: #e5e7eb;
   --muted: #9ca3af;
   --border: #1f2933;
-  --radius: 12px;
-  --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.4);
+  --radius: 14px;
+  --shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.7);
 }
 
 *,
@@ -27,17 +34,29 @@
 body {
   margin: 0;
   font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top, #111827 0, #020617 40%, #000 100%);
+  background:
+    radial-gradient(circle at 0% 0%, #1f2937 0, transparent 45%),
+    radial-gradient(circle at 100% 0%, #0f172a 0, transparent 55%),
+    radial-gradient(circle at 50% 100%, #020617 0, #000 65%);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
 }
+
+h1, h2, h3 {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  letter-spacing: 0.02em;
+}
+
+/* Layout geral */
 
 section {
   padding: 80px min(7vw, 80px);
 }
 
 .section-alt {
-  background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100%);
+  background:
+    radial-gradient(circle at top left, rgba(56,189,248,0.08), transparent 55%),
+    #020617;
 }
 
 .section-header {
@@ -54,6 +73,8 @@ section {
 .section-header p {
   color: var(--muted);
 }
+
+/* Navbar */
 
 .navbar {
   position: sticky;
@@ -82,9 +103,9 @@ section {
 
 .nav-logo {
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 .nav-logo span {
@@ -102,6 +123,8 @@ section {
 .nav-links a:hover {
   color: var(--accent);
 }
+
+/* Hero */
 
 .hero {
   padding-top: 100px;
@@ -121,10 +144,11 @@ section {
   color: var(--muted);
   font-size: 0.8rem;
   margin-bottom: 16px;
+  background: rgba(15,23,42,0.7);
 }
 
 .hero h1 {
-  font-size: clamp(2.3rem, 3.6vw, 3.1rem);
+  font-size: clamp(2.4rem, 3.7vw, 3.2rem);
   line-height: 1.1;
   margin-bottom: 14px;
 }
@@ -152,7 +176,7 @@ section {
   text-decoration: none;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: background 0.18s ease, border-color 0.18s ease, transform 0.08s ease;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.08s ease, box-shadow 0.18s ease;
 }
 
 .btn-primary {
@@ -171,7 +195,7 @@ section {
   width: 0;
   height: 0;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.25);
   transform: translate(-50%, -50%);
   transition: width 0.6s, height 0.6s;
 }
@@ -204,25 +228,30 @@ section {
   color: var(--muted);
 }
 
+.hero-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Hero card */
+
 .hero-highlight {
   display: flex;
   justify-content: flex-end;
 }
 
 .hero-card {
-  background: radial-gradient(circle at top, #0f172a 0, #020617 60%);
+  background: linear-gradient(135deg, rgba(15,23,42,0.88), rgba(15,23,42,0.65));
   border-radius: 24px;
   padding: 24px;
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid rgba(148, 163, 184, 0.35);
   box-shadow: var(--shadow-soft);
   max-width: 420px;
-  animation: float 3s ease-in-out infinite;
-  transition: transform 0.3s ease;
-}
-
-.hero-card:hover {
-  animation: none;
-  transform: translateY(-5px) scale(1.02);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  animation: float 5s ease-in-out infinite;
+  transform-origin: center;
 }
 
 .hero-card-title {
@@ -244,6 +273,19 @@ section {
   margin-bottom: 16px;
 }
 
+.hero-card-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.hero-card-metric span strong {
+  color: var(--accent);
+}
+
 .hero-card-tags span {
   display: inline-flex;
   padding: 4px 10px;
@@ -254,6 +296,8 @@ section {
   margin-right: 6px;
 }
 
+/* Skills */
+
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -261,13 +305,16 @@ section {
 }
 
 .skill-card {
-  background: rgba(15, 23, 42, 0.9);
-  border-radius: var(--radius);
+  background: var(--card);
+  border-radius: 18px;
   padding: 18px 18px 16px;
   border: 1px solid rgba(148, 163, 184, 0.18);
-  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  box-shadow:
+    10px 10px 25px rgba(0,0,0,0.85),
+    -6px -6px 16px rgba(30,64,175,0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .skill-card::before {
@@ -277,8 +324,8 @@ section {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.1), transparent);
-  transition: left 0.5s ease;
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.18), transparent);
+  transition: left 0.6s ease;
 }
 
 .skill-card:hover::before {
@@ -286,9 +333,11 @@ section {
 }
 
 .skill-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
   border-color: var(--accent);
-  box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
+  box-shadow:
+    14px 14px 30px rgba(0,0,0,0.9),
+    -6px -6px 18px rgba(56,189,248,0.35);
 }
 
 .skill-card h3 {
@@ -301,6 +350,14 @@ section {
   margin: 0;
   font-size: 0.85rem;
   color: var(--muted);
+}
+
+/* Projetos */
+
+#projetos {
+  background:
+    radial-gradient(circle at 0% 0%, rgba(99,102,241,0.18), transparent 50%),
+    #020617;
 }
 
 .project-filters {
@@ -326,6 +383,7 @@ section {
 .filter-btn:hover {
   border-color: var(--accent);
   color: var(--text);
+  background: rgba(15,23,42,0.85);
 }
 
 .projects-grid {
@@ -336,12 +394,15 @@ section {
 
 .project-card {
   background: var(--card);
-  border-radius: var(--radius);
+  border-radius: 18px;
   padding: 18px 18px 16px;
   border: 1px solid rgba(148, 163, 184, 0.2);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   overflow: hidden;
+  box-shadow:
+    10px 10px 25px rgba(0,0,0,0.85),
+    -6px -6px 16px rgba(30,64,175,0.25);
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
 }
 
 .project-card::after {
@@ -351,7 +412,7 @@ section {
   right: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.4s ease;
 }
@@ -361,9 +422,11 @@ section {
 }
 
 .project-card:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-4px) scale(1.01);
   border-color: var(--accent);
-  box-shadow: 0 20px 40px rgba(56, 189, 248, 0.3);
+  box-shadow:
+    14px 14px 30px rgba(0,0,0,0.9),
+    -6px -6px 18px rgba(56,189,248,0.35);
 }
 
 .project-header {
@@ -393,7 +456,7 @@ section {
   display: inline-flex;
   padding: 3px 8px;
   border-radius: 999px;
-  background: rgba(30, 64, 175, 0.6);
+  background: rgba(30, 64, 175, 0.7);
   font-size: 0.72rem;
   margin-right: 4px;
   margin-bottom: 4px;
@@ -420,6 +483,8 @@ section {
   opacity: 0.7;
 }
 
+/* Sobre */
+
 .about-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.2fr);
@@ -444,6 +509,8 @@ section {
   color: var(--muted);
   font-size: 0.9rem;
 }
+
+/* Contato */
 
 .contact-grid {
   display: grid;
@@ -479,6 +546,8 @@ section {
   min-height: 120px;
 }
 
+/* Footer */
+
 .footer {
   padding: 20px min(7vw, 80px) 24px;
   text-align: center;
@@ -487,6 +556,47 @@ section {
   border-top: 1px solid rgba(148, 163, 184, 0.2);
   background: #020617;
 }
+
+/* Acessibilidade */
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+
+/* Animações gerais */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-in {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
+
+/* Responsivo */
 
 @media (max-width: 900px) {
   .hero {
@@ -507,80 +617,17 @@ section {
     display: none;
   }
 }
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(56, 189, 248, 0.6);
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.animate-in {
-  opacity: 0;
-  animation: fadeInUp 0.8s ease forwards;
-}
-
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-.delay-4 { animation-delay: 0.4s; }
-.delay-5 { animation-delay: 0.5s; }
-.delay-6 { animation-delay: 0.6s; }
-
   </style>
 </head>
 <body>
   <!-- Navbar -->
   <nav class="navbar">
     <div class="nav-logo">
-      Seu <span>Nome</span>
+      SEU <span>NOME</span>
     </div>
     <div class="nav-links">
       <a href="#sobre">Sobre</a>
-      <a href="#skills">Skills</a>
+      <a href="#skills">Stack</a>
       <a href="#projetos">Projetos</a>
       <a href="#contato">Contato</a>
     </div>
@@ -589,63 +636,77 @@ section {
   <!-- Hero Section -->
   <section class="hero">
     <div>
-      <div class="hero-tag animate-in">👋 Disponível para novos projetos</div>
-      <h1 class="animate-in delay-1">Desenvolvedor Full Stack & Designer de Interfaces</h1>
+      <div class="hero-tag animate-in">📊 Data Science • 🧠 Deep Learning • 👁️ Visão Computacional</div>
+      <h1 class="animate-in delay-1">
+        Construindo modelos inteligentes que viram produtos de verdade.
+      </h1>
       <p class="hero-subtitle animate-in delay-2">
-        Criando experiências digitais modernas e funcionais com foco em performance, 
-        usabilidade e design clean.
+        Data Scientist focado em deep learning e visão computacional, criando soluções ponta a ponta:
+        desde a exploração de dados até o deploy de modelos em produção com MLOps moderno.[web:17][web:42]
       </p>
       <div class="hero-actions animate-in delay-3">
-        <a href="#projetos" class="btn-primary">Ver Projetos</a>
-        <a href="#contato" class="btn-secondary">Entrar em Contato</a>
+        <a href="#projetos" class="btn-primary">Ver projetos em destaque</a>
+        <a href="#contato" class="btn-secondary">Entrar em contato</a>
       </div>
       <div class="hero-meta animate-in delay-4">
         <span>📍 Uberlândia, MG</span>
-        <span>💼 3+ anos de experiência</span>
-        <span>🚀 15+ projetos entregues</span>
+        <span>🧪 Experimentos em CV, NLP e séries temporais</span>
+        <span>🚀 Foco em aplicações reais de negócio</span>
       </div>
     </div>
     
     <div class="hero-highlight">
       <div class="hero-card animate-in delay-5">
-        <div class="hero-card-title">Projeto em Destaque</div>
-        <h2>Plataforma E-commerce</h2>
+        <div class="hero-card-title">Projeto em destaque</div>
+        <h2>Detecção de Lesões em Imagens Médicas</h2>
         <p class="hero-card-text">
-          Sistema completo de e-commerce com painel administrativo, 
-          integração de pagamentos e dashboard analítico.
+          Pipeline completo de visão computacional: pré-processamento, treinamento de CNN,
+          explicabilidade com Grad-CAM e deploy em API REST monitorada.[web:45][web:52]
         </p>
+        <div class="hero-card-metric">
+          <span><strong>AUC: 0.96</strong> em dados de validação externa</span>
+          <span>Redução de 35% no tempo médio de triagem manual</span>
+        </div>
         <div class="hero-card-tags">
-          <span>React</span>
-          <span>Node.js</span>
-          <span>MongoDB</span>
+          <span>Computer Vision</span>
+          <span>PyTorch</span>
+          <span>MLOps</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Skills Section -->
+  <!-- Skills / Stack Section -->
   <section id="skills" class="section-alt">
     <div class="section-header">
-      <h2>Habilidades & Tecnologias</h2>
-      <p>Ferramentas e tecnologias que domino para criar soluções completas</p>
+      <h2>Stack para Data Science & Deep Learning</h2>
+      <p>Cobrindo desde EDA e modelagem até deploy e monitoramento em produção.[web:42][web:55]</p>
     </div>
     
     <div class="skills-grid">
       <div class="skill-card">
-        <h3>🎨 Frontend</h3>
-        <p>React, Vue.js, TypeScript, Tailwind CSS, HTML5, CSS3</p>
+        <h3>📊 Data Science & EDA</h3>
+        <p>Pandas, NumPy, Scikit-learn, SQL, Feature Engineering, experimentação, validação cruzada.[web:42][web:45]</p>
       </div>
       <div class="skill-card">
-        <h3>⚙️ Backend</h3>
-        <p>Node.js, Express, Python, Django, REST APIs, GraphQL</p>
+        <h3>🧠 Deep Learning</h3>
+        <p>PyTorch, TensorFlow/Keras, CNNs, RNNs, Transformers, treinamento distribuído, fine-tuning.[web:53][web:55]</p>
       </div>
       <div class="skill-card">
-        <h3>🗄️ Database</h3>
-        <p>MongoDB, PostgreSQL, MySQL, Redis, Firebase</p>
+        <h3>👁️ Visão Computacional</h3>
+        <p>Classificação, detecção (YOLO/RetinaNet), segmentação, OpenCV, augmentations, Grad-CAM.[web:51][web:53]</p>
       </div>
       <div class="skill-card">
-        <h3>🛠️ DevOps</h3>
-        <p>Docker, AWS, Git, CI/CD, Nginx, Linux</p>
+        <h3>🗣️ NLP & Séries Temporais</h3>
+        <p>BERT/Transformers, classificação de texto, análise de sentimento, LSTM, Prophet, forecasting.[web:45][web:52]</p>
+      </div>
+      <div class="skill-card">
+        <h3>⚙️ MLOps & Deploy</h3>
+        <p>Docker, FastAPI, Flask, GitHub Actions, CI/CD, monitoramento, versionamento de modelos.[web:42][web:55]</p>
+      </div>
+      <div class="skill-card">
+        <h3>📈 Visualização & Storytelling</h3>
+        <p>Matplotlib, Seaborn, Plotly, dashboards, comunicação de insights para times de negócio.[web:17][web:45]</p>
       </div>
     </div>
   </section>
@@ -653,88 +714,114 @@ section {
   <!-- Projects Section -->
   <section id="projetos">
     <div class="section-header">
-      <h2>Projetos Recentes</h2>
-      <p>Alguns dos trabalhos que desenvolvi recentemente</p>
+      <h2>Projetos de Data Science & Deep Learning</h2>
+      <p>Seleção de projetos com foco em impacto, diversidade de técnicas e boa engenharia.[web:42][web:52]</p>
     </div>
     
     <div class="project-filters">
       <button class="filter-btn active" data-filter="all">Todos</button>
-      <button class="filter-btn" data-filter="web">Web</button>
-      <button class="filter-btn" data-filter="mobile">Mobile</button>
-      <button class="filter-btn" data-filter="design">Design</button>
+      <button class="filter-btn" data-filter="cv">Visão Computacional</button>
+      <button class="filter-btn" data-filter="nlp">NLP</button>
+      <button class="filter-btn" data-filter="ts">Séries Temporais</button>
+      <button class="filter-btn" data-filter="mlops">MLOps / Deploy</button>
     </div>
     
     <div class="projects-grid">
-      <div class="project-card" data-category="web">
+      <!-- CV Project -->
+      <div class="project-card" data-category="cv">
         <div class="project-header">
-          <h3>Dashboard Analytics</h3>
+          <h3>Classificação de Imagens com CNN</h3>
+          <span class="project-year">2025</span>
+        </div>
+        <p class="project-desc">
+          Modelo de classificação de imagens com CNN em PyTorch, usando augmentations avançadas,
+          early stopping e explicabilidade com Grad-CAM.[web:45][web:53]
+        </p>
+        <div class="project-tags">
+          <span>PyTorch</span>
+          <span>Computer Vision</span>
+          <span>Grad-CAM</span>
+        </div>
+        <div class="project-meta">
+          <span>Accuracy: 94%</span>
+          <span>Dataset: customizado</span>
+        </div>
+        <div class="project-links">
+          <a href="#" target="_blank">GitHub →</a>
+          <a href="#" target="_blank">Notebook / Relatório →</a>
+        </div>
+      </div>
+
+      <!-- Object Detection Project -->
+      <div class="project-card" data-category="cv mlops">
+        <div class="project-header">
+          <h3>Detecção de Objetos em Vídeo em Tempo Real</h3>
+          <span class="project-year">2025</span>
+        </div>
+        <p class="project-desc">
+          Pipeline de detecção em tempo real com YOLO, otimização para GPU e deploy em API REST
+          Dockerizada com monitoramento básico de latência e throughput.[web:51][web:55]
+        </p>
+        <div class="project-tags">
+          <span>YOLO</span>
+          <span>FastAPI</span>
+          <span>Docker</span>
+        </div>
+        <div class="project-meta">
+          <span>30 FPS em GPU</span>
+          <span>Latência &lt; 80ms</span>
+        </div>
+        <div class="project-links">
+          <a href="#" target="_blank">GitHub →</a>
+          <a href="#" target="_blank">Demo em vídeo →</a>
+        </div>
+      </div>
+
+      <!-- Time Series Project -->
+      <div class="project-card" data-category="ts">
+        <div class="project-header">
+          <h3>Previsão de Demanda com Séries Temporais</h3>
           <span class="project-year">2024</span>
         </div>
         <p class="project-desc">
-          Painel completo de visualização de dados com gráficos interativos e relatórios em tempo real.
+          Comparação entre LSTM e Prophet para previsão de demanda, com análise de erro,
+          visualização de incerteza e avaliação por MAPE.[web:42][web:45]
         </p>
         <div class="project-tags">
-          <span>React</span>
-          <span>D3.js</span>
-          <span>Node.js</span>
+          <span>LSTM</span>
+          <span>Prophet</span>
+          <span>Forecasting</span>
+        </div>
+        <div class="project-meta">
+          <span>MAPE: 6.3%</span>
         </div>
         <div class="project-links">
-          <a href="#">Ver Demo →</a>
-          <a href="#">GitHub →</a>
+          <a href="#" target="_blank">GitHub →</a>
+          <a href="#" target="_blank">Relatório técnico →</a>
         </div>
       </div>
 
-      <div class="project-card" data-category="web">
+      <!-- NLP Project -->
+      <div class="project-card" data-category="nlp mlops">
         <div class="project-header">
-          <h3>Sistema de Gestão</h3>
+          <h3>Classificação de Texto com BERT</h3>
           <span class="project-year">2024</span>
         </div>
         <p class="project-desc">
-          ERP customizado para pequenas empresas com controle de estoque, vendas e finanças.
+          Fine-tuning de BERT para classificação de sentimentos, com monitoramento de drift de dados
+          e re-treino automatizado em pipeline CI/CD.[web:53][web:55]
         </p>
         <div class="project-tags">
-          <span>Vue.js</span>
-          <span>Python</span>
-          <span>PostgreSQL</span>
+          <span>NLP</span>
+          <span>BERT</span>
+          <span>MLOps</span>
+        </div>
+        <div class="project-meta">
+          <span>F1-score: 0.91</span>
         </div>
         <div class="project-links">
-          <a href="#">Ver Caso →</a>
-        </div>
-      </div>
-
-      <div class="project-card" data-category="mobile">
-        <div class="project-header">
-          <h3>App Delivery</h3>
-          <span class="project-year">2023</span>
-        </div>
-        <p class="project-desc">
-          Aplicativo mobile para delivery de alimentos com rastreamento em tempo real.
-        </p>
-        <div class="project-tags">
-          <span>React Native</span>
-          <span>Firebase</span>
-          <span>Maps API</span>
-        </div>
-        <div class="project-links">
-          <a href="#">Ver Demo →</a>
-        </div>
-      </div>
-
-      <div class="project-card" data-category="design">
-        <div class="project-header">
-          <h3>Landing Page SaaS</h3>
-          <span class="project-year">2023</span>
-        </div>
-        <p class="project-desc">
-          Design moderno e conversivo para produto SaaS com foco em geração de leads.
-        </p>
-        <div class="project-tags">
-          <span>Figma</span>
-          <span>Next.js</span>
-          <span>Tailwind</span>
-        </div>
-        <div class="project-links">
-          <a href="#">Ver Site →</a>
+          <a href="#" target="_blank">GitHub →</a>
+          <a href="#" target="_blank">Post / Artigo →</a>
         </div>
       </div>
     </div>
@@ -743,42 +830,39 @@ section {
   <!-- About Section -->
   <section id="sobre" class="section-alt">
     <div class="section-header">
-      <h2>Sobre Mim</h2>
-      <p>Um pouco da minha trajetória e interesses</p>
+      <h2>Sobre mim</h2>
+      <p>Quem sou, o que estudo e como enxergo Data Science e Deep Learning.[web:17][web:52]</p>
     </div>
     
     <div class="about-layout">
       <div class="about-text">
         <p>
-          Olá! Sou um desenvolvedor full stack apaixonado por criar experiências 
-          digitais que fazem a diferença. Com mais de 3 anos de experiência, 
-          trabalhei em projetos de diversos tamanhos e complexidades.
+          Olá! Sou um profissional focado em Data Science e Deep Learning, com interesse especial
+          em visão computacional e problemas de mundo real.[web:17][web:45]
         </p>
         <p>
-          Minha especialidade está em transformar ideias em produtos funcionais 
-          e escaláveis, sempre com atenção aos detalhes e foco na experiência 
-          do usuário. Adoro aprender novas tecnologias e compartilhar conhecimento 
-          com a comunidade.
+          Gosto de construir soluções ponta a ponta: desde a coleta e limpeza de dados,
+          modelagem e experimentação, até o deploy de modelos com boas práticas de engenharia.[web:42][web:55]
         </p>
         <p>
-          Quando não estou codando, você pode me encontrar lendo sobre tecnologia, 
-          praticando esportes ou explorando novos cafés pela cidade.
+          Meus projetos buscam sempre contar uma história clara com dados: contexto de negócio,
+          abordagem técnica, resultados e próximos passos possíveis.[web:45][web:52]
         </p>
       </div>
       
       <div class="about-list">
-        <h3>🎓 Formação</h3>
+        <h3>🎓 Formação & Estudos</h3>
         <ul>
-          <li>Ciência da Computação - UFU</li>
-          <li>Certificação AWS Solutions Architect</li>
-          <li>Google UX Design Certificate</li>
+          <li>Graduação (ou curso atual) — atualize aqui.</li>
+          <li>Cursos focados em Deep Learning, MLOps e Visão Computacional.</li>
+          <li>Participação em competições (Kaggle / hackathons) e projetos open source.[web:4][web:50]</li>
         </ul>
         
-        <h3 style="margin-top: 20px;">🏆 Conquistas</h3>
+        <h3 style="margin-top: 20px;">🎯 Interesses atuais</h3>
         <ul>
-          <li>Hackathon Vencedor 2023</li>
-          <li>Contribuidor Open Source</li>
-          <li>Speaker em meetups locais</li>
+          <li>Modelos foundation e fine-tuning em tarefas específicas.</li>
+          <li>Aplicações de visão computacional em saúde e indústria.[web:42][web:51]</li>
+          <li>Boas práticas de MLOps e observabilidade de modelos em produção.[web:42][web:55]</li>
         </ul>
       </div>
     </div>
@@ -787,8 +871,8 @@ section {
   <!-- Contact Section -->
   <section id="contato">
     <div class="section-header">
-      <h2>Vamos Trabalhar Juntos?</h2>
-      <p>Estou sempre aberto a novos desafios e oportunidades</p>
+      <h2>Vamos trabalhar juntos?</h2>
+      <p>Aberto a oportunidades, freelas e colaborações em projetos de Data Science e Deep Learning.[web:52][web:55]</p>
     </div>
     
     <div class="contact-grid">
@@ -797,20 +881,20 @@ section {
         <div class="contact-form">
           <input type="text" placeholder="Seu nome">
           <input type="email" placeholder="Seu email">
-          <textarea placeholder="Sua mensagem"></textarea>
-          <button class="btn-primary">Enviar Mensagem</button>
+          <textarea placeholder="Conte um pouco sobre a ideia ou projeto"></textarea>
+          <button class="btn-primary">Enviar mensagem</button>
         </div>
       </div>
       
       <div>
         <h3>🔗 Conecte-se comigo</h3>
         <p style="color: var(--muted); margin-bottom: 16px;">
-          Você também pode me encontrar nas redes sociais ou enviar um email direto.
+          Você também pode me encontrar nas redes ou enviar um email direto.
         </p>
         <div style="display: grid; gap: 8px;">
           <a href="#" class="btn-secondary" style="width: 100%;">LinkedIn</a>
           <a href="#" class="btn-secondary" style="width: 100%;">GitHub</a>
-          <a href="#" class="btn-secondary" style="width: 100%;">Twitter</a>
+          <a href="#" class="btn-secondary" style="width: 100%;">Kaggle</a>
           <a href="mailto:contato@email.com" class="btn-secondary" style="width: 100%;">Email</a>
         </div>
       </div>
@@ -819,25 +903,27 @@ section {
 
   <!-- Footer -->
   <footer class="footer">
-    <p>© 2024 Seu Nome. Desenvolvido com ☕ e 💙</p>
+    <p>© <span id="year"></span> Seu Nome — Data Science & Deep Learning.</p>
   </footer>
 
   <script>
-    // Filter functionality
+    // Atualiza ano
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Filtro de projetos
     const filterBtns = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
 
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        // Update active button
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
         const filter = btn.dataset.filter;
 
-        // Filter projects
         projectCards.forEach(card => {
-          if (filter === 'all' || card.dataset.category === filter) {
+          const categories = (card.dataset.category || '').split(' ');
+          if (filter === 'all' || categories.includes(filter)) {
             card.style.display = 'block';
           } else {
             card.style.display = 'none';
@@ -849,15 +935,14 @@ section {
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
-        e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
 
-    // Intersection Observer for animations
+    // Intersection Observer para animações de entrada
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
@@ -876,7 +961,7 @@ section {
     document.querySelectorAll('.skill-card').forEach((card, index) => {
       card.style.opacity = '0';
       card.style.transform = 'translateY(30px)';
-      card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+      card.style.transition = `all 0.6s ease ${index * 0.08}s`;
       observer.observe(card);
     });
 
@@ -884,22 +969,22 @@ section {
     document.querySelectorAll('.project-card').forEach((card, index) => {
       card.style.opacity = '0';
       card.style.transform = 'translateY(30px)';
-      card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+      card.style.transition = `all 0.6s ease ${index * 0.08}s`;
       observer.observe(card);
     });
 
-    // Parallax effect for hero card
+    // Parallax leve para hero card
+    const heroCard = document.querySelector('.hero-card');
     window.addEventListener('mousemove', (e) => {
-      const heroCard = document.querySelector('.hero-card');
-      if (heroCard) {
-        const { left, top, width, height } = heroCard.getBoundingClientRect();
-        const centerX = left + width / 2;
-        const centerY = top + height / 2;
-        const deltaX = (e.clientX - centerX) / 50;
-        const deltaY = (e.clientY - centerY) / 50;
-        
-        heroCard.style.transform = `perspective(1000px) rotateY(${deltaX}deg) rotateX(${-deltaY}deg)`;
-      }
+      if (!heroCard) return;
+      const { left, top, width, height } = heroCard.getBoundingClientRect();
+      const centerX = left + width / 2;
+      const centerY = top + height / 2;
+      const maxRotate = 8;
+      const deltaX = ((e.clientX - centerX) / width) * maxRotate;
+      const deltaY = ((e.clientY - centerY) / height) * maxRotate;
+
+      heroCard.style.transform = `perspective(900px) rotateY(${deltaX}deg) rotateX(${-deltaY}deg)`;
     });
   </script>
 </body>
