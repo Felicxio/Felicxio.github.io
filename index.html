@@ -1,991 +1,668 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>João Victor Assunção Pereira — Data Science & Deep Learning</title>
-
-  <!-- Fontes modernas -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="João Victor Pereira — Data Scientist & Machine Learning Engineer. Python, SQL, Machine Learning, Deep Learning, Data Pipelines, LLMs." />
+  <meta name="keywords" content="Data Scientist, Machine Learning Engineer, Python, SQL, TensorFlow, PyTorch, Scikit-Learn, Databricks, AWS, ETL, LLM, RAG" />
+  <title>João Victor Pereira | Data Scientist & ML Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
   <style>
-:root {
-  --bg: #050816;
-  --bg-alt: #0b1020;
-  --card: #020617;
-  --accent: #38bdf8;
-  --accent-soft: rgba(56, 189, 248, 0.12);
-  --accent-strong: #6366f1;
-  --text: #e5e7eb;
-  --muted: #9ca3af;
-  --border: #1f2933;
-  --radius: 14px;
-  --shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.7);
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background:
-    radial-gradient(circle at 0% 0%, #1f2937 0, transparent 45%),
-    radial-gradient(circle at 100% 0%, #0f172a 0, transparent 55%),
-    radial-gradient(circle at 50% 100%, #020617 0, #000 65%);
-  color: var(--text);
-  -webkit-font-smoothing: antialiased;
-}
-
-h1, h2, h3 {
-  font-family: "Space Grotesk", system-ui, sans-serif;
-  letter-spacing: 0.02em;
-}
-
-/* Layout geral */
-
-section {
-  padding: 80px min(7vw, 80px);
-}
-
-.section-alt {
-  background:
-    radial-gradient(circle at top left, rgba(56,189,248,0.08), transparent 55%),
-    #020617;
-}
-
-.section-header {
-  max-width: 720px;
-  margin: 0 auto 40px;
-  text-align: center;
-}
-
-.section-header h2 {
-  font-size: 2rem;
-  margin-bottom: 8px;
-}
-
-.section-header p {
-  color: var(--muted);
-}
-
-/* Navbar */
-
-.navbar {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px min(7vw, 80px);
-  background: rgba(2, 6, 23, 0.9);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
-  animation: slideDown 0.6s ease;
-}
-
-@keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.nav-logo {
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-}
-
-.nav-logo span {
-  color: var(--accent);
-}
-
-.nav-links a {
-  margin-left: 24px;
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.2s;
-}
-
-.nav-links a:hover {
-  color: var(--accent);
-}
-
-/* Hero */
-
-.hero {
-  padding-top: 100px;
-  padding-bottom: 80px;
-  display: grid;
-  grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.5fr);
-  gap: 48px;
-  align-items: center;
-}
-
-.hero-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  color: var(--muted);
-  font-size: 0.8rem;
-  margin-bottom: 16px;
-  background: rgba(15,23,42,0.7);
-}
-
-.hero h1 {
-  font-size: clamp(2.4rem, 3.7vw, 3.2rem);
-  line-height: 1.1;
-  margin-bottom: 14px;
-}
-
-.hero-subtitle {
-  color: var(--muted);
-  max-width: 520px;
-  margin-bottom: 24px;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.btn-primary,
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 18px;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  text-decoration: none;
-  cursor: pointer;
-  border: 1px solid transparent;
-  transition: background 0.18s ease, border-color 0.18s ease, transform 0.08s ease, box-shadow 0.18s ease;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, #38bdf8, #6366f1);
-  color: #0b1120;
-  font-weight: 600;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.25);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.btn-primary:hover::before {
-  width: 300px;
-  height: 300px;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--text);
-  border-color: rgba(148, 163, 184, 0.5);
-}
-
-.btn-secondary:hover {
-  border-color: var(--accent);
-}
-
-.hero-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  font-size: 0.8rem;
-  color: var(--muted);
-}
-
-.hero-meta span {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* Hero card */
-
-.hero-highlight {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.hero-card {
-  background: linear-gradient(135deg, rgba(15,23,42,0.88), rgba(15,23,42,0.65));
-  border-radius: 24px;
-  padding: 24px;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  box-shadow: var(--shadow-soft);
-  max-width: 420px;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  animation: float 5s ease-in-out infinite;
-  transform-origin: center;
-}
-
-.hero-card-title {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--muted);
-  margin-bottom: 6px;
-}
-
-.hero-card h2 {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-}
-
-.hero-card-text {
-  color: var(--muted);
-  font-size: 0.9rem;
-  margin-bottom: 16px;
-}
-
-.hero-card-metric {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 12px;
-  font-size: 0.8rem;
-  color: var(--muted);
-}
-
-.hero-card-metric span strong {
-  color: var(--accent);
-}
-
-.hero-card-tags span {
-  display: inline-flex;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  background: var(--accent-soft);
-  color: #e0f2fe;
-  margin-right: 6px;
-}
-
-/* Skills */
-
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 18px;
-}
-
-.skill-card {
-  background: var(--card);
-  border-radius: 18px;
-  padding: 18px 18px 16px;
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  position: relative;
-  overflow: hidden;
-  box-shadow:
-    10px 10px 25px rgba(0,0,0,0.85),
-    -6px -6px 16px rgba(30,64,175,0.25);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.skill-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.18), transparent);
-  transition: left 0.6s ease;
-}
-
-.skill-card:hover::before {
-  left: 100%;
-}
-
-.skill-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--accent);
-  box-shadow:
-    14px 14px 30px rgba(0,0,0,0.9),
-    -6px -6px 18px rgba(56,189,248,0.35);
-}
-
-.skill-card h3 {
-  margin-top: 0;
-  margin-bottom: 6px;
-  font-size: 1rem;
-}
-
-.skill-card p {
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-/* Projetos */
-
-#projetos {
-  background:
-    radial-gradient(circle at 0% 0%, rgba(99,102,241,0.18), transparent 50%),
-    #020617;
-}
-
-.project-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-  margin-bottom: 28px;
-}
-
-.filter-btn {
-  padding: 6px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.4);
-  background: transparent;
-  color: var(--muted);
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.filter-btn.active,
-.filter-btn:hover {
-  border-color: var(--accent);
-  color: var(--text);
-  background: rgba(15,23,42,0.85);
-}
-
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-}
-
-.project-card {
-  background: var(--card);
-  border-radius: 18px;
-  padding: 18px 18px 16px;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  position: relative;
-  overflow: hidden;
-  box-shadow:
-    10px 10px 25px rgba(0,0,0,0.85),
-    -6px -6px 16px rgba(30,64,175,0.25);
-  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
-}
-
-.project-card::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.project-card:hover::after {
-  opacity: 1;
-}
-
-.project-card:hover {
-  transform: translateY(-4px) scale(1.01);
-  border-color: var(--accent);
-  box-shadow:
-    14px 14px 30px rgba(0,0,0,0.9),
-    -6px -6px 18px rgba(56,189,248,0.35);
-}
-
-.project-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 8px;
-}
-
-.project-header h3 {
-  margin: 0;
-  font-size: 1rem;
-}
-
-.project-year {
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-
-.project-desc {
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-
-.project-tags span {
-  display: inline-flex;
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: rgba(30, 64, 175, 0.7);
-  font-size: 0.72rem;
-  margin-right: 4px;
-  margin-bottom: 4px;
-}
-
-.project-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  font-size: 0.75rem;
-  color: var(--muted);
-  margin: 8px 0;
-}
-
-.project-links a {
-  font-size: 0.8rem;
-  color: var(--accent);
-  text-decoration: none;
-  margin-right: 10px;
-  transition: opacity 0.2s;
-}
-
-.project-links a:hover {
-  opacity: 0.7;
-}
-
-/* Sobre */
-
-.about-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.2fr);
-  gap: 32px;
-  align-items: flex-start;
-}
-
-.about-text p {
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-
-.about-list h3 {
-  margin-top: 0;
-  margin-bottom: 8px;
-  font-size: 1rem;
-}
-
-.about-list ul {
-  padding-left: 18px;
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-/* Contato */
-
-.contact-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.3fr);
-  gap: 32px;
-  align-items: flex-start;
-}
-
-.contact-form {
-  display: grid;
-  gap: 10px;
-}
-
-.contact-form input,
-.contact-form textarea {
-  background: rgba(15, 23, 42, 0.9);
-  border-radius: 10px;
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  padding: 8px 10px;
-  color: var(--text);
-  font-size: 0.9rem;
-  font-family: inherit;
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-}
-
-.contact-form textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-/* Footer */
-
-.footer {
-  padding: 20px min(7vw, 80px) 24px;
-  text-align: center;
-  font-size: 0.8rem;
-  color: var(--muted);
-  border-top: 1px solid rgba(148, 163, 184, 0.2);
-  background: #020617;
-}
-
-/* Acessibilidade */
-
-a:focus-visible,
-button:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 999px;
-}
-
-/* Animações gerais */
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-.animate-in {
-  opacity: 0;
-  animation: fadeInUp 0.8s ease forwards;
-}
-
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-.delay-4 { animation-delay: 0.4s; }
-.delay-5 { animation-delay: 0.5s; }
-.delay-6 { animation-delay: 0.6s; }
-
-/* Responsivo */
-
-@media (max-width: 900px) {
-  .hero {
-    grid-template-columns: 1fr;
-    padding-top: 96px;
-  }
-
-  .hero-highlight {
-    justify-content: flex-start;
-  }
-
-  .about-layout,
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .nav-links {
-    display: none;
-  }
-}
+    :root {
+      --bg-primary:#080c12; --bg-secondary:#0d1420; --bg-card:#111827; --bg-card-hover:#161f30;
+      --border:#1e2d42; --border-light:#243347;
+      --accent:#00d4ff; --accent-dim:rgba(0,212,255,0.12); --accent-glow:rgba(0,212,255,0.25);
+      --amber:#f59e0b; --amber-dim:rgba(245,158,11,0.12);
+      --green:#10b981; --green-dim:rgba(16,185,129,0.12);
+      --purple:#8b5cf6; --purple-dim:rgba(139,92,246,0.12);
+      --text-primary:#f0f6ff; --text-secondary:#8fa3c0; --text-muted:#4a6380;
+      --font-display:'Syne',sans-serif; --font-body:'DM Sans',sans-serif; --font-mono:'DM Mono',monospace;
+      --radius-sm:6px; --radius-md:12px; --radius-lg:20px;
+      --t:.2s cubic-bezier(.4,0,.2,1); --ts:.4s cubic-bezier(.4,0,.2,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg-primary);color:var(--text-primary);font-family:var(--font-body);line-height:1.7;overflow-x:hidden;}
+    ::selection{background:var(--accent-glow);color:var(--accent);}
+    a{color:inherit;text-decoration:none;}
+
+    /* BG */
+    body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(ellipse 80% 50% at 20% 10%,rgba(0,212,255,.05) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(139,92,246,.04) 0%,transparent 60%);pointer-events:none;z-index:0;}
+    body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.015) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+
+    /* LAYOUT */
+    .container{max-width:1100px;margin:0 auto;padding:0 2rem;position:relative;z-index:1;}
+    section{padding:100px 0;position:relative;z-index:1;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.25rem 0;background:rgba(8,12,18,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:var(--t);}
+    .nav-inner{max-width:1100px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-family:var(--font-mono);font-size:.85rem;color:var(--accent);letter-spacing:.05em;}
+    .nav-right{display:flex;align-items:center;gap:2rem;}
+    .nav-links{display:flex;gap:2rem;list-style:none;}
+    .nav-links a{font-size:.875rem;color:var(--text-secondary);letter-spacing:.03em;transition:color var(--t);position:relative;}
+    .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--accent);transition:width var(--t);}
+    .nav-links a:hover{color:var(--accent);}
+    .nav-links a:hover::after{width:100%;}
+
+    /* LANG TOGGLE */
+    .lang-toggle{display:flex;align-items:center;background:var(--bg-card);border:1px solid var(--border-light);border-radius:100px;padding:3px;flex-shrink:0;}
+    .lang-btn{font-family:var(--font-mono);font-size:.72rem;font-weight:500;letter-spacing:.06em;padding:.3rem .65rem;border-radius:100px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;transition:all .25s ease;line-height:1;}
+    .lang-btn.active{background:var(--accent);color:var(--bg-primary);}
+    .lang-btn:not(.active):hover{color:var(--text-secondary);}
+
+    /* HERO */
+    #hero{min-height:100vh;display:flex;align-items:center;padding-top:80px;}
+    .hero-inner{max-width:900px;}
+    .hero-tag{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.8rem;color:var(--accent);background:var(--accent-dim);border:1px solid rgba(0,212,255,.2);padding:.35rem .85rem;border-radius:100px;margin-bottom:2rem;letter-spacing:.08em;text-transform:uppercase;animation:fadeInDown .6s ease both;}
+    .hero-tag::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.8);}}
+    .hero-name{font-family:var(--font-display);font-size:clamp(3rem,7vw,5.5rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin-bottom:.5rem;animation:fadeInDown .6s .1s ease both;}
+    .hero-name .highlight{background:linear-gradient(135deg,var(--accent) 0%,#0099dd 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .hero-title{font-family:var(--font-mono);font-size:clamp(.85rem,2vw,1rem);color:var(--text-secondary);margin-bottom:1.75rem;letter-spacing:.04em;animation:fadeInDown .6s .2s ease both;}
+    .hero-title span{color:var(--accent);}
+    .hero-desc{font-size:1.1rem;color:var(--text-secondary);max-width:620px;line-height:1.75;margin-bottom:2.5rem;animation:fadeInDown .6s .3s ease both;}
+    .hero-desc strong{color:var(--text-primary);font-weight:500;}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:1rem;animation:fadeInDown .6s .4s ease both;}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.5rem;border-radius:var(--radius-sm);font-size:.9rem;font-weight:500;font-family:var(--font-body);cursor:pointer;transition:all var(--t);border:1px solid transparent;white-space:nowrap;}
+    .btn-primary{background:var(--accent);color:var(--bg-primary);border-color:var(--accent);}
+    .btn-primary:hover{background:transparent;color:var(--accent);box-shadow:0 0 20px var(--accent-glow);}
+    .btn-secondary{background:transparent;color:var(--text-secondary);border-color:var(--border-light);}
+    .btn-secondary:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-dim);}
+    .hero-stats{display:flex;gap:2.5rem;margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);animation:fadeInDown .6s .5s ease both;}
+    .stat-item{display:flex;flex-direction:column;}
+    .stat-value{font-family:var(--font-display);font-size:1.75rem;font-weight:800;color:var(--accent);line-height:1;}
+    .stat-label{font-size:.8rem;color:var(--text-muted);margin-top:.3rem;font-family:var(--font-mono);letter-spacing:.04em;}
+
+    /* SECTION HEADERS */
+    .section-header{margin-bottom:3.5rem;}
+    .section-tag{font-family:var(--font-mono);font-size:.75rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.75rem;display:block;}
+    .section-title{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.75rem);font-weight:800;letter-spacing:-.02em;line-height:1.1;}
+    .section-subtitle{color:var(--text-secondary);margin-top:.75rem;max-width:540px;}
+
+    /* ABOUT */
+    #about{background:var(--bg-secondary);}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+    .about-text p{color:var(--text-secondary);margin-bottom:1.25rem;line-height:1.8;}
+    .about-text p strong{color:var(--text-primary);font-weight:500;}
+    .about-facts{display:flex;flex-direction:column;gap:1rem;}
+    .fact-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;transition:border-color var(--t),background var(--t);}
+    .fact-card:hover{border-color:var(--border-light);background:var(--bg-card-hover);}
+    .fact-icon{font-size:1.25rem;flex-shrink:0;}
+    .fact-content strong{display:block;font-size:.9rem;color:var(--text-primary);font-weight:500;}
+    .fact-content span{font-size:.8rem;color:var(--text-muted);font-family:var(--font-mono);}
+
+    /* PROJECTS */
+    .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(480px,1fr));gap:1.5rem;}
+    .project-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;display:flex;flex-direction:column;transition:all var(--ts);position:relative;overflow:hidden;}
+    .project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity var(--t);}
+    .project-card:hover{border-color:var(--border-light);background:var(--bg-card-hover);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.3),0 0 0 1px var(--border-light);}
+    .project-card:hover::before{opacity:1;}
+    .project-card.featured{grid-column:1/-1;}
+    .project-card.featured::before{background:linear-gradient(90deg,var(--amber),var(--accent));opacity:.6;}
+    .project-card.featured:hover::before{opacity:1;}
+    .project-meta{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;}
+    .project-type{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .65rem;border-radius:100px;background:var(--accent-dim);color:var(--accent);border:1px solid rgba(0,212,255,.2);}
+    .project-type.ml{background:var(--purple-dim);color:var(--purple);border-color:rgba(139,92,246,.2);}
+    .project-type.etl{background:var(--amber-dim);color:var(--amber);border-color:rgba(245,158,11,.2);}
+    .project-type.eda{background:var(--green-dim);color:var(--green);border-color:rgba(16,185,129,.2);}
+    .project-year{font-family:var(--font-mono);font-size:.7rem;color:var(--text-muted);margin-left:auto;}
+    .project-title{font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-bottom:.5rem;}
+    .project-problem{font-size:.8rem;font-family:var(--font-mono);color:var(--text-muted);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+    .project-problem::before{content:'→';color:var(--accent);}
+    .project-desc{color:var(--text-secondary);font-size:.925rem;line-height:1.75;margin-bottom:1.25rem;flex-grow:1;}
+    .project-impact{background:var(--green-dim);border:1px solid rgba(16,185,129,.2);border-radius:var(--radius-sm);padding:.75rem 1rem;margin-bottom:1.25rem;font-size:.85rem;color:var(--green);display:flex;gap:.5rem;align-items:flex-start;}
+    .project-impact::before{content:'◆';font-size:.6rem;margin-top:.2rem;flex-shrink:0;}
+    .project-stack{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem;}
+    .tag{font-family:var(--font-mono);font-size:.72rem;padding:.2rem .6rem;border-radius:var(--radius-sm);background:var(--bg-primary);border:1px solid var(--border-light);color:var(--text-muted);}
+    .project-footer{display:flex;align-items:center;}
+    .project-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--accent);font-family:var(--font-mono);transition:gap var(--t);}
+    .project-link:hover{gap:.7rem;}
+
+    /* SKILLS */
+    #skills{background:var(--bg-secondary);}
+    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+    .skill-category{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.75rem;transition:border-color var(--t);}
+    .skill-category:hover{border-color:var(--border-light);}
+    .skill-cat-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;}
+    .skill-cat-icon{font-size:1.1rem;}
+    .skill-cat-title{font-family:var(--font-display);font-size:.95rem;font-weight:700;}
+    .skill-list{display:flex;flex-direction:column;gap:.6rem;}
+    .skill-item{display:flex;align-items:center;justify-content:space-between;font-size:.85rem;}
+    .skill-name{color:var(--text-secondary);font-family:var(--font-mono);}
+    .skill-dots{display:flex;gap:3px;}
+    .dot{width:5px;height:5px;border-radius:50%;background:var(--border-light);}
+    .dot.filled{background:var(--accent);}
+    .dot.half{background:rgba(0,212,255,.35);}
+
+    /* TIMELINE */
+    .timeline{display:flex;flex-direction:column;position:relative;}
+    .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--accent),transparent);}
+    .timeline-item{padding-left:2.5rem;padding-bottom:3rem;position:relative;}
+    .timeline-item:last-child{padding-bottom:0;}
+    .timeline-item::before{content:'';position:absolute;left:-4px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent-glow);}
+    .timeline-meta{display:flex;align-items:center;gap:1rem;margin-bottom:.5rem;flex-wrap:wrap;}
+    .timeline-period{font-family:var(--font-mono);font-size:.75rem;color:var(--accent);letter-spacing:.05em;}
+    .timeline-badge{font-family:var(--font-mono);font-size:.7rem;padding:.15rem .5rem;background:var(--amber-dim);color:var(--amber);border-radius:100px;border:1px solid rgba(245,158,11,.2);}
+    .timeline-title{font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-bottom:.25rem;}
+    .timeline-company{font-size:.85rem;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:1rem;}
+    .timeline-bullets{list-style:none;display:flex;flex-direction:column;gap:.6rem;}
+    .timeline-bullets li{font-size:.9rem;color:var(--text-secondary);padding-left:1.2rem;position:relative;line-height:1.6;}
+    .timeline-bullets li::before{content:'▸';position:absolute;left:0;color:var(--accent);font-size:.7rem;top:.2rem;}
+    .timeline-bullets li strong{color:var(--text-primary);font-weight:500;}
+    .timeline-tools{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem;}
+
+    /* CERTS */
+    .certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;}
+    .cert-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.25rem 1.5rem;transition:all var(--t);}
+    .cert-card:hover{border-color:var(--border-light);background:var(--bg-card-hover);}
+    .cert-issuer{font-family:var(--font-mono);font-size:.7rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.35rem;}
+    .cert-name{font-size:.875rem;color:var(--text-primary);font-weight:500;line-height:1.4;margin-bottom:.5rem;}
+    .cert-year{font-family:var(--font-mono);font-size:.72rem;color:var(--text-muted);}
+
+    /* CONTACT */
+    #contact{background:var(--bg-secondary);}
+    .contact-inner{max-width:700px;}
+    .contact-links{display:flex;flex-direction:column;gap:1rem;margin-top:2rem;}
+    .contact-link{display:flex;align-items:center;gap:1.25rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.25rem 1.5rem;transition:all var(--t);}
+    .contact-link:hover{border-color:var(--accent);background:var(--accent-dim);transform:translateX(4px);}
+    .contact-link-icon{font-size:1.25rem;flex-shrink:0;}
+    .contact-link-content strong{display:block;font-size:.9rem;color:var(--text-primary);}
+    .contact-link-content span{font-size:.8rem;color:var(--text-muted);font-family:var(--font-mono);}
+    .contact-link-arrow{margin-left:auto;color:var(--text-muted);transition:all var(--t);}
+    .contact-link:hover .contact-link-arrow{color:var(--accent);transform:translateX(3px);}
+
+    /* FOOTER */
+    footer{border-top:1px solid var(--border);padding:2rem 0;text-align:center;position:relative;z-index:1;}
+    footer p{font-family:var(--font-mono);font-size:.78rem;color:var(--text-muted);}
+    footer a{color:var(--accent);}
+
+    /* ANIMATIONS */
+    @keyframes fadeInDown{from{opacity:0;transform:translateY(-16px);}to{opacity:1;transform:translateY(0);}}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+    .reveal.visible{opacity:1;transform:none;}
+    .reveal-stagger>*{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;}
+    .reveal-stagger.visible>*:nth-child(1){opacity:1;transform:none;transition-delay:0s;}
+    .reveal-stagger.visible>*:nth-child(2){opacity:1;transform:none;transition-delay:.08s;}
+    .reveal-stagger.visible>*:nth-child(3){opacity:1;transform:none;transition-delay:.16s;}
+    .reveal-stagger.visible>*:nth-child(4){opacity:1;transform:none;transition-delay:.24s;}
+    .reveal-stagger.visible>*:nth-child(5){opacity:1;transform:none;transition-delay:.32s;}
+    .reveal-stagger.visible>*:nth-child(6){opacity:1;transform:none;transition-delay:.40s;}
+    .reveal-stagger.visible>*:nth-child(7){opacity:1;transform:none;transition-delay:.48s;}
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar{width:5px;}
+    ::-webkit-scrollbar-track{background:var(--bg-primary);}
+    ::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:10px;}
+    ::-webkit-scrollbar-thumb:hover{background:var(--accent);}
+
+    /* RESPONSIVE */
+    @media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:2.5rem;}.skills-grid{grid-template-columns:repeat(2,1fr);}.projects-grid{grid-template-columns:1fr;}}
+    @media(max-width:640px){section{padding:70px 0;}.container{padding:0 1.25rem;}.nav-links{display:none;}.hero-stats{flex-wrap:wrap;gap:1.5rem;}.skills-grid{grid-template-columns:1fr;}.hero-actions{flex-direction:column;}.btn{width:100%;justify-content:center;}}
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="nav-logo">
-      JOÃO VICTOR <span>ASSUNÇÃO</span>
-    </div>
-    <div class="nav-links">
-      <a href="#sobre">Sobre</a>
-      <a href="#skills">Stack</a>
-      <a href="#projetos">Projetos</a>
-      <a href="#contato">Contato</a>
-    </div>
-  </nav>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div>
-      <div class="hero-tag animate-in">📊 Data Science • 🧠 Deep Learning • 👁️ Visão Computacional</div>
-      <h1 class="animate-in delay-1">
-        Construindo modelos inteligentes que viram produtos de verdade.
-      </h1>
-      <p class="hero-subtitle animate-in delay-2">
-        Data Scientist focado em deep learning e visão computacional, criando soluções ponta a ponta:
-        desde a exploração de dados até o deploy de modelos em produção com MLOps moderno.[web:17][web:42]
-      </p>
-      <div class="hero-actions animate-in delay-3">
-        <a href="#projetos" class="btn-primary">Ver projetos em destaque</a>
-        <a href="#contato" class="btn-secondary">Entrar em contato</a>
-      </div>
-      <div class="hero-meta animate-in delay-4">
-        <span>📍 Uberlândia, MG</span>
-        <span>🧪 Experimentos em CV, NLP e séries temporais</span>
-        <span>🚀 Foco em aplicações reais de negócio</span>
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <span class="nav-logo">jv.pereira/~</span>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#about"      data-i18n="nav.about">About</a></li>
+        <li><a href="#projects"   data-i18n="nav.projects">Projects</a></li>
+        <li><a href="#skills"     data-i18n="nav.skills">Skills</a></li>
+        <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+        <li><a href="#contact"    data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="lang-toggle" role="group" aria-label="Language / Idioma">
+        <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+        <button class="lang-btn"        id="btnPT" onclick="setLang('pt')">PT</button>
       </div>
     </div>
-    
-    <div class="hero-highlight">
-      <div class="hero-card animate-in delay-5">
-        <div class="hero-card-title">Projeto em destaque</div>
-        <h2>Detecção de Lesões em Imagens Médicas</h2>
-        <p class="hero-card-text">
-          Pipeline completo de visão computacional: pré-processamento, treinamento de CNN,
-          explicabilidade com Grad-CAM e deploy em API REST monitorada.[web:45][web:52]
-        </p>
-        <div class="hero-card-metric">
-          <span><strong>AUC: 0.96</strong> em dados de validação externa</span>
-          <span>Redução de 35% no tempo médio de triagem manual</span>
-        </div>
-        <div class="hero-card-tags">
-          <span>Computer Vision</span>
-          <span>PyTorch</span>
-          <span>MLOps</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
+</nav>
 
-  <!-- Skills / Stack Section -->
-  <section id="skills" class="section-alt">
-    <div class="section-header">
-      <h2>Stack para Data Science & Deep Learning</h2>
-      <p>Cobrindo desde EDA e modelagem até deploy e monitoramento em produção.[web:42][web:55]</p>
-    </div>
-    
-    <div class="skills-grid">
-      <div class="skill-card">
-        <h3>📊 Data Science & EDA</h3>
-        <p>Pandas, NumPy, Scikit-learn, SQL, Feature Engineering, experimentação, validação cruzada.[web:42][web:45]</p>
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-tag" data-i18n="hero.tag">Available for Junior Roles · Brazil</div>
+      <h1 class="hero-name">João Victor<br /><span class="highlight">Pereira</span></h1>
+      <p class="hero-title">Data Scientist &nbsp;|&nbsp; <span>Python · SQL · Machine Learning</span> &nbsp;|&nbsp; Data Pipelines · LLMs</p>
+      <p class="hero-desc" data-i18n="hero.desc">Mechatronics engineer turned data professional. I build <strong>end-to-end ML pipelines</strong>, extract real business signals from messy industrial data, and deploy intelligent systems — from predictive models to <strong>LLM-powered multi-agent architectures</strong>.</p>
+      <div class="hero-actions">
+        <a href="https://github.com/Felicxio/Data-Science-Portfolio" target="_blank" rel="noopener" class="btn btn-primary">&#x2B;&nbsp;<span data-i18n="hero.cta.projects">View Projects</span></a>
+        <a href="https://www.linkedin.com/in/joão-victor-assunção-pereira-88a461211" target="_blank" rel="noopener" class="btn btn-secondary">&#x1F4BC;&nbsp; LinkedIn</a>
+        <a href="mailto:jvictor3651@gmail.com" class="btn btn-secondary">&#x2709;&nbsp;<span data-i18n="hero.cta.contact">Get in touch</span></a>
       </div>
-      <div class="skill-card">
-        <h3>🧠 Deep Learning</h3>
-        <p>PyTorch, TensorFlow/Keras, CNNs, RNNs, Transformers, treinamento distribuído, fine-tuning.[web:53][web:55]</p>
-      </div>
-      <div class="skill-card">
-        <h3>👁️ Visão Computacional</h3>
-        <p>Classificação, detecção (YOLO/RetinaNet), segmentação, OpenCV, augmentations, Grad-CAM.[web:51][web:53]</p>
-      </div>
-      <div class="skill-card">
-        <h3>🗣️ NLP & Séries Temporais</h3>
-        <p>BERT/Transformers, classificação de texto, análise de sentimento, LSTM, Prophet, forecasting.[web:45][web:52]</p>
-      </div>
-      <div class="skill-card">
-        <h3>⚙️ MLOps & Deploy</h3>
-        <p>Docker, FastAPI, Flask, GitHub Actions, CI/CD, monitoramento, versionamento de modelos.[web:42][web:55]</p>
-      </div>
-      <div class="skill-card">
-        <h3>📈 Visualização & Storytelling</h3>
-        <p>Matplotlib, Seaborn, Plotly, dashboards, comunicação de insights para times de negócio.[web:17][web:45]</p>
+      <div class="hero-stats">
+        <div class="stat-item"><span class="stat-value">5+</span><span class="stat-label" data-i18n="hero.stat1">Portfolio Projects</span></div>
+        <div class="stat-item"><span class="stat-value">1yr+</span><span class="stat-label" data-i18n="hero.stat2">Industrial Data Exp.</span></div>
+        <div class="stat-item"><span class="stat-value">15+</span><span class="stat-label" data-i18n="hero.stat3">Tools &amp; Frameworks</span></div>
+        <div class="stat-item"><span class="stat-value">C1</span><span class="stat-label" data-i18n="hero.stat4">English (EFSET)</span></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Projects Section -->
-  <section id="projetos">
-    <div class="section-header">
-      <h2>Projetos de Data Science & Deep Learning</h2>
-      <p>Seleção de projetos com foco em impacto, diversidade de técnicas e boa engenharia.[web:42][web:52]</p>
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag" data-i18n="about.tag">// 01 — about</span>
+      <h2 class="section-title" data-i18n="about.title">What I Do</h2>
     </div>
-    
-    <div class="project-filters">
-      <button class="filter-btn active" data-filter="all">Todos</button>
-      <button class="filter-btn" data-filter="cv">Visão Computacional</button>
-      <button class="filter-btn" data-filter="nlp">NLP</button>
-      <button class="filter-btn" data-filter="ts">Séries Temporais</button>
-      <button class="filter-btn" data-filter="mlops">MLOps / Deploy</button>
-    </div>
-    
-    <div class="projects-grid">
-      <!-- CV Project -->
-      <div class="project-card" data-category="cv">
-        <div class="project-header">
-          <h3>Classificação de Imagens com CNN</h3>
-          <span class="project-year">2025</span>
-        </div>
-        <p class="project-desc">
-          Modelo de classificação de imagens com CNN em PyTorch, usando augmentations avançadas,
-          early stopping e explicabilidade com Grad-CAM.[web:45][web:53]
-        </p>
-        <div class="project-tags">
-          <span>PyTorch</span>
-          <span>Computer Vision</span>
-          <span>Grad-CAM</span>
-        </div>
-        <div class="project-meta">
-          <span>Accuracy: 94%</span>
-          <span>Dataset: customizado</span>
-        </div>
-        <div class="project-links">
-          <a href="#" target="_blank">GitHub →</a>
-          <a href="#" target="_blank">Notebook / Relatório →</a>
-        </div>
-      </div>
-
-      <!-- Object Detection Project -->
-      <div class="project-card" data-category="cv mlops">
-        <div class="project-header">
-          <h3>Detecção de Objetos em Vídeo em Tempo Real</h3>
-          <span class="project-year">2025</span>
-        </div>
-        <p class="project-desc">
-          Pipeline de detecção em tempo real com YOLO, otimização para GPU e deploy em API REST
-          Dockerizada com monitoramento básico de latência e throughput.[web:51][web:55]
-        </p>
-        <div class="project-tags">
-          <span>YOLO</span>
-          <span>FastAPI</span>
-          <span>Docker</span>
-        </div>
-        <div class="project-meta">
-          <span>30 FPS em GPU</span>
-          <span>Latência &lt; 80ms</span>
-        </div>
-        <div class="project-links">
-          <a href="#" target="_blank">GitHub →</a>
-          <a href="#" target="_blank">Demo em vídeo →</a>
-        </div>
-      </div>
-
-      <!-- Time Series Project -->
-      <div class="project-card" data-category="ts">
-        <div class="project-header">
-          <h3>Previsão de Demanda com Séries Temporais</h3>
-          <span class="project-year">2024</span>
-        </div>
-        <p class="project-desc">
-          Comparação entre LSTM e Prophet para previsão de demanda, com análise de erro,
-          visualização de incerteza e avaliação por MAPE.[web:42][web:45]
-        </p>
-        <div class="project-tags">
-          <span>LSTM</span>
-          <span>Prophet</span>
-          <span>Forecasting</span>
-        </div>
-        <div class="project-meta">
-          <span>MAPE: 6.3%</span>
-        </div>
-        <div class="project-links">
-          <a href="#" target="_blank">GitHub →</a>
-          <a href="#" target="_blank">Relatório técnico →</a>
-        </div>
-      </div>
-
-      <!-- NLP Project -->
-      <div class="project-card" data-category="nlp mlops">
-        <div class="project-header">
-          <h3>Classificação de Texto com BERT</h3>
-          <span class="project-year">2024</span>
-        </div>
-        <p class="project-desc">
-          Fine-tuning de BERT para classificação de sentimentos, com monitoramento de drift de dados
-          e re-treino automatizado em pipeline CI/CD.[web:53][web:55]
-        </p>
-        <div class="project-tags">
-          <span>NLP</span>
-          <span>BERT</span>
-          <span>MLOps</span>
-        </div>
-        <div class="project-meta">
-          <span>F1-score: 0.91</span>
-        </div>
-        <div class="project-links">
-          <a href="#" target="_blank">GitHub →</a>
-          <a href="#" target="_blank">Post / Artigo →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="sobre" class="section-alt">
-    <div class="section-header">
-      <h2>Sobre mim</h2>
-      <p>Quem sou, o que estudo e como enxergo Data Science e Deep Learning.[web:17][web:52]</p>
-    </div>
-    
-    <div class="about-layout">
+    <div class="about-grid reveal">
       <div class="about-text">
-        <p>
-          Olá! Sou um profissional focado em Data Science e Deep Learning, com interesse especial
-          em visão computacional e problemas de mundo real.[web:17][web:45]
-        </p>
-        <p>
-          Gosto de construir soluções ponta a ponta: desde a coleta e limpeza de dados,
-          modelagem e experimentação, até o deploy de modelos com boas práticas de engenharia.[web:42][web:55]
-        </p>
-        <p>
-          Meus projetos buscam sempre contar uma história clara com dados: contexto de negócio,
-          abordagem técnica, resultados e próximos passos possíveis.[web:45][web:52]
-        </p>
+        <p data-i18n="about.p1">I'm a <strong>Data Scientist and ML Engineer</strong> with a background in Mechatronics Engineering. That cross-disciplinary foundation means I understand both the physical systems that generate data and the models that extract value from it.</p>
+        <p data-i18n="about.p2">My focus is on solving real problems: whether that's building an <strong>ETL pipeline that feeds a Power BI dashboard</strong>, training a <strong>classification model with Scikit-Learn</strong>, or architecting a <strong>RAG system with LLMs</strong> to make unstructured data searchable.</p>
+        <p data-i18n="about.p3">I've worked with industrial-scale data in a food processing plant (~5,500 units/day), where the margin for error is narrow and data quality directly impacts operational decisions. That context shapes how I approach every project.</p>
       </div>
-      
-      <div class="about-list">
-        <h3>🎓 Formação & Estudos</h3>
-        <ul>
-          <li>Graduação em Engenharia Mecatrônica pela Universidade Federal de Uberlândia — 2025</li>
-          <li>Cursos focados em Deep Learning, MLOps e Visão Computacional.</li>
-          <li>Participação em competições (Kaggle / hackathons) e projetos open source.[web:4][web:50]</li>
-        </ul>
-        
-        <h3 style="margin-top: 20px;">🎯 Interesses atuais</h3>
-        <ul>
-          <li>Modelos foundation e fine-tuning em tarefas específicas.</li>
-          <li>Aplicações de visão computacional em saúde e indústria.[web:42][web:51]</li>
-          <li>Boas práticas de MLOps e observabilidade de modelos em produção.[web:42][web:55]</li>
-        </ul>
+      <div class="about-facts">
+        <div class="fact-card"><span class="fact-icon">🎓</span><div class="fact-content"><strong data-i18n="about.fact1.t">Mechatronics Engineering — UFU</strong><span data-i18n="about.fact1.s">Universidade Federal de Uberlândia · 2019–2025</span></div></div>
+        <div class="fact-card"><span class="fact-icon">🏭</span><div class="fact-content"><strong data-i18n="about.fact2.t">Industrial Data Analysis — Marfrig</strong><span>Power BI · Excel · SAP · KPIs</span></div></div>
+        <div class="fact-card"><span class="fact-icon">🤖</span><div class="fact-content"><strong data-i18n="about.fact3.t">ML &amp; Deep Learning Projects</strong><span>Scikit-Learn · TensorFlow · PyTorch · OpenCV</span></div></div>
+        <div class="fact-card"><span class="fact-icon">⚡</span><div class="fact-content"><strong data-i18n="about.fact4.t">GenAI &amp; LLM Engineering</strong><span>RAG · Multi-agent systems · Embeddings · APIs</span></div></div>
+        <div class="fact-card"><span class="fact-icon">📍</span><div class="fact-content"><strong>Uberlândia, Minas Gerais</strong><span data-i18n="about.fact5.s">Open to remote · Brazil · English C1</span></div></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Contact Section -->
-  <section id="contato">
-    <div class="section-header">
-      <h2>Vamos trabalhar juntos?</h2>
-      <p>Aberto a oportunidades, freelas e colaborações em projetos de Data Science e Deep Learning.[web:52][web:55]</p>
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag" data-i18n="projects.tag">// 02 — projects</span>
+      <h2 class="section-title" data-i18n="projects.title">Selected Work</h2>
+      <p class="section-subtitle" data-i18n="projects.subtitle">End-to-end projects translating raw data into measurable results.</p>
     </div>
-    
-    <div class="contact-grid">
-      <div>
-        <h3>📧 Envie uma mensagem</h3>
-        <div class="contact-form">
-          <input type="text" placeholder="Seu nome">
-          <input type="email" placeholder="Seu email">
-          <textarea placeholder="Conte um pouco sobre a ideia ou projeto"></textarea>
-          <button class="btn-primary">Enviar mensagem</button>
+    <div class="projects-grid reveal-stagger">
+
+      <div class="project-card featured">
+        <div class="project-meta"><span class="project-type ml" data-i18n="badge.ml">Machine Learning</span><span class="project-year">2024</span></div>
+        <h3 class="project-title" data-i18n="p1.title">Spotify Track Genre Classifier</h3>
+        <p class="project-problem" data-i18n="p1.problem">Can audio features predict musical genre well enough to automate playlist curation?</p>
+        <p class="project-desc" data-i18n="p1.desc">Developed a multiclass classification pipeline using Python and Scikit-Learn on a dataset of 50k+ Spotify tracks. Applied feature engineering on audio attributes (danceability, energy, valence, tempo) and evaluated multiple algorithms — Logistic Regression, Random Forest, and Gradient Boosting — with cross-validated accuracy metrics. Performed full EDA with Seaborn and Matplotlib to uncover feature correlations before model training.</p>
+        <div class="project-impact" data-i18n="p1.impact">Achieved 87%+ classification accuracy on validation set using a tuned Random Forest model. Demonstrated how structured audio features alone can reliably distinguish between 10 genres — a key insight for recommendation systems engineering.</div>
+        <div class="project-stack"><span class="tag">Python</span><span class="tag">Scikit-Learn</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Matplotlib</span><span class="tag">Seaborn</span><span class="tag">Feature Engineering</span><span class="tag">Cross-Validation</span></div>
+        <div class="project-footer"><a href="https://github.com/Felicxio/Data-Science-Portfolio/tree/main/1.%20Portfolio-%20Classifica%C3%A7%C3%A3o%20de%20m%C3%BAsicas%20do%20Spotify" target="_blank" rel="noopener" class="project-link" data-i18n="project.github">View on GitHub →</a></div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-meta"><span class="project-type etl" data-i18n="badge.etl">ETL Pipeline</span><span class="project-year">2024</span></div>
+        <h3 class="project-title" data-i18n="p2.title">Bitcoin Price ETL Pipeline</h3>
+        <p class="project-problem" data-i18n="p2.problem">Automating real-time crypto data collection into a structured, queryable format.</p>
+        <p class="project-desc" data-i18n="p2.desc">Built a Python-based ETL pipeline that consumes live price data from a public REST API, applies data validation and transformation with Pandas, and persists records to a structured database for downstream analysis. Scheduled runs enable continuous time-series tracking.</p>
+        <div class="project-impact" data-i18n="p2.impact">Automated 100% of data ingestion — eliminated manual extraction and enabled reproducible historical analysis of price volatility trends.</div>
+        <div class="project-stack"><span class="tag">Python</span><span class="tag">REST APIs</span><span class="tag">Pandas</span><span class="tag">ETL</span><span class="tag">Data Ingestion</span></div>
+        <div class="project-footer"><a href="https://github.com/Felicxio/Data-Science-Portfolio/tree/main/3.%20Portfolio%20-%20ETL%20Bitcoin%20Price" target="_blank" rel="noopener" class="project-link" data-i18n="project.github">View on GitHub →</a></div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-meta"><span class="project-type etl" data-i18n="badge.de">Data Engineering</span><span class="project-year">2024</span></div>
+        <h3 class="project-title" data-i18n="p3.title">Northwind Sales ETL &amp; Analytics</h3>
+        <p class="project-problem" data-i18n="p3.problem">How do you turn a transactional SQL database into business-ready sales KPIs?</p>
+        <p class="project-desc" data-i18n="p3.desc">Designed and implemented a full ETL pipeline over the Northwind relational database using Python and SQL. Extracted and transformed sales, orders, and product data; modeled it into an analytical layer; and produced dashboards-ready aggregations for revenue performance, top products, and regional trends.</p>
+        <div class="project-impact" data-i18n="p3.impact">Reduced ad-hoc query turnaround from manual hours to automated seconds. Produced a clean analytical layer that directly mirrors enterprise BI workflows.</div>
+        <div class="project-stack"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">PostgreSQL</span><span class="tag">ETL/ELT</span><span class="tag">Data Modeling</span><span class="tag">Pandas</span></div>
+        <div class="project-footer"><a href="https://github.com/Felicxio/Data-Science-Portfolio/tree/main/5.%20Portfolio%20-%20ETL%20pipeline%20Northwind%20DB" target="_blank" rel="noopener" class="project-link" data-i18n="project.github">View on GitHub →</a></div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-meta"><span class="project-type eda" data-i18n="badge.eda">Exploratory Analysis</span><span class="project-year">2024</span></div>
+        <h3 class="project-title" data-i18n="p4.title">Global YouTube Statistics 2023 — EDA</h3>
+        <p class="project-problem" data-i18n="p4.problem">What separates the world's top content channels — geography, category, or consistency?</p>
+        <p class="project-desc" data-i18n="p4.desc">Deep-dive EDA on a dataset of 1,000+ top YouTube channels worldwide. Analyzed subscriber growth patterns, view-to-subscriber conversion rates, geographic distribution, and content category dominance. Used Pandas, Seaborn and Plotly for interactive and static visualization.</p>
+        <div class="project-impact" data-i18n="p4.impact">Surfaced that music and entertainment channels dominate views but gaming drives higher per-video engagement — a counterintuitive insight with direct implications for content strategy.</div>
+        <div class="project-stack"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Seaborn</span><span class="tag">Plotly</span><span class="tag">EDA</span><span class="tag">Statistical Analysis</span></div>
+        <div class="project-footer"><a href="https://github.com/Felicxio/Data-Science-Portfolio/tree/main/2.%20Portfolio%20-%20EDA%20Estatisticas%20Youtube%202023" target="_blank" rel="noopener" class="project-link" data-i18n="project.github">View on GitHub →</a></div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-meta"><span class="project-type" data-i18n="badge.auto">Automation</span><span class="project-year">2024</span></div>
+        <h3 class="project-title" data-i18n="p5.title">Python Data Automation Framework</h3>
+        <p class="project-problem" data-i18n="p5.problem">How do you eliminate repetitive data processing tasks that take hours each week?</p>
+        <p class="project-desc" data-i18n="p5.desc">Built a Python automation system to handle recurring data processing workflows: file ingestion, transformation, validation, and output generation. Applied scheduling and modular design patterns to allow reusable pipeline components across different datasets.</p>
+        <div class="project-impact" data-i18n="p5.impact">Simulated a reduction of 4+ hours/week in manual data preparation time. Architecture mirrors real-world RPA and data workflow automation patterns.</div>
+        <div class="project-stack"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Automation</span><span class="tag">Pipeline Design</span></div>
+        <div class="project-footer"><a href="https://github.com/Felicxio/Data-Science-Portfolio/tree/main/4.%20Portfolio%20-%20Automa%C3%A7%C3%A3o%20Dados%20Python" target="_blank" rel="noopener" class="project-link" data-i18n="project.github">View on GitHub →</a></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag" data-i18n="skills.tag">// 03 — skills</span>
+      <h2 class="section-title" data-i18n="skills.title">Technical Stack</h2>
+      <p class="section-subtitle" data-i18n="skills.subtitle">Tools I use to take problems from raw data to production-ready solutions.</p>
+    </div>
+    <div class="skills-grid reveal-stagger">
+      <div class="skill-category">
+        <div class="skill-cat-header"><span class="skill-cat-icon">🐍</span><span class="skill-cat-title" data-i18n="skills.lang">Languages</span></div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-name">Python</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot half"></div></div></div>
+          <div class="skill-item"><span class="skill-name">SQL</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+          <div class="skill-item"><span class="skill-name">C / C++</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div></div>
         </div>
       </div>
-      
-      <div>
-        <h3>🔗 Conecte-se comigo</h3>
-        <p style="color: var(--muted); margin-bottom: 16px;">
-          Você também pode me encontrar nas redes ou enviar um email direto.
-        </p>
-        <div style="display: grid; gap: 8px;">
-          <a href="#" class="btn-secondary" style="width: 100%;">LinkedIn</a>
-          <a href="#" class="btn-secondary" style="width: 100%;">GitHub</a>
-          <a href="#" class="btn-secondary" style="width: 100%;">Kaggle</a>
-          <a href="mailto:jvictor3651@gmail.com" class="btn-secondary" style="width: 100%;">Email</a>
+      <div class="skill-category">
+        <div class="skill-cat-header"><span class="skill-cat-icon">📊</span><span class="skill-cat-title" data-i18n="skills.data">Data Analysis &amp; Viz</span></div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-name">Pandas / Polars</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot half"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Power BI</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Plotly / Seaborn</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Excel Avançado</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+        </div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-header"><span class="skill-cat-icon">⚙️</span><span class="skill-cat-title" data-i18n="skills.eng">Data Engineering</span></div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-name">ETL / ELT</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Apache Spark (PySpark)</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Databricks</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div></div>
+          <div class="skill-item"><span class="skill-name">PostgreSQL / SQL Server</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+        </div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-header"><span class="skill-cat-icon">🧠</span><span class="skill-cat-title">Machine Learning</span></div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-name">Scikit-Learn</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+          <div class="skill-item"><span class="skill-name" data-i18n="skill.feateng">Feature Engineering</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+          <div class="skill-item"><span class="skill-name" data-i18n="skill.valid">Model Validation</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+          <div class="skill-item"><span class="skill-name" data-i18n="skill.pred">Predictive Modeling</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot half"></div><div class="dot"></div></div></div>
+        </div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-header"><span class="skill-cat-icon">🔬</span><span class="skill-cat-title" data-i18n="skills.dl">Deep Learning &amp; GenAI</span></div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-name">TensorFlow / Keras</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot half"></div><div class="dot"></div></div></div>
+          <div class="skill-item"><span class="skill-name">PyTorch</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot half"></div><div class="dot"></div></div></div>
+          <div class="skill-item"><span class="skill-name">RAG / LLMs</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot half"></div><div class="dot"></div></div></div>
+          <div class="skill-item"><span class="skill-name" data-i18n="skill.agent">Multi-agent Systems</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div></div>
+        </div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-header"><span class="skill-cat-icon">☁️</span><span class="skill-cat-title" data-i18n="skills.cloud">Cloud &amp; MLOps</span></div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-name">AWS</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Docker</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Git / GitHub</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+          <div class="skill-item"><span class="skill-name">UiPath / n8n</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot half"></div><div class="dot"></div><div class="dot"></div></div></div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <p>© <span id="year"></span> João Victor Assunção Pereira — Data Science & Deep Learning.</p>
-  </footer>
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag" data-i18n="exp.tag">// 04 — experience</span>
+      <h2 class="section-title" data-i18n="exp.title">Work History</h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-period">OUT 2024 → JUL 2025</span>
+          <span class="timeline-badge" data-i18n="exp1.badge">Internship · Data &amp; Operations</span>
+        </div>
+        <h3 class="timeline-title" data-i18n="exp1.role">PCM Data Analyst Intern</h3>
+        <p class="timeline-company">MBRF — Marfrig Brasil Foods · ~5,500 <span data-i18n="exp.units">units</span>/day</p>
+        <ul class="timeline-bullets">
+          <li data-i18n="exp1.b1">Analyzed production and maintenance data at industrial scale using <strong>Power BI, Excel, and SAP</strong>, supporting a critical KPI target of &lt;0.85% downtime rate.</li>
+          <li data-i18n="exp1.b2">Worked with engineers to prioritize maintenance actions using <strong>historical failure data and budget constraints</strong> — translating raw operational data into prioritized decisions.</li>
+          <li data-i18n="exp1.b3">Developed Failure Analysis Reports (RAF) with root cause identification using data-driven methods, <strong>reducing recurring equipment failures</strong> and increasing asset reliability.</li>
+          <li data-i18n="exp1.b4">Contributed data analyses in cross-functional performance meetings, <strong>driving continuous improvement</strong> in production efficiency.</li>
+        </ul>
+        <div class="timeline-tools"><span class="tag">Power BI</span><span class="tag">Excel Avançado</span><span class="tag">SAP</span><span class="tag">KPIs Operacionais</span><span class="tag">Análise de Falhas</span><span class="tag">Lean Six Sigma</span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-period">JUL 2023 → JUL 2024</span>
+          <span class="timeline-badge" data-i18n="exp2.badge">Scientific Research</span>
+        </div>
+        <h3 class="timeline-title" data-i18n="exp2.role">Scientific Initiation Researcher</h3>
+        <p class="timeline-company">Laprosolda — UFU · <span data-i18n="exp2.sub">Welding &amp; Automation Lab · Petrobras · Belgo</span></p>
+        <ul class="timeline-bullets">
+          <li data-i18n="exp2.b1">Supported engineering teams on industrial projects for Petrobras, performing <strong>data collection, analysis, and reporting</strong> from laboratory equipment.</li>
+          <li data-i18n="exp2.b2">Applied data analysis in maintenance and quality validation workflows — building a foundation in <strong>engineering data interpretation</strong> before transitioning to ML roles.</li>
+        </ul>
+        <div class="timeline-tools"><span class="tag">Python</span><span class="tag">Data Analysis</span><span class="tag">Engineering Instrumentation</span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-period">JAN 2023 → FEV 2025</span>
+          <span class="timeline-badge" data-i18n="exp3.badge">University Extension</span>
+        </div>
+        <h3 class="timeline-title" data-i18n="exp3.role">Data &amp; Simulation Analyst</h3>
+        <p class="timeline-company">Baja Cerrado — UFU Off-Road Racing Team</p>
+        <ul class="timeline-bullets">
+          <li data-i18n="exp3.b1">Performed <strong>structural and thermal simulations</strong> to optimize mechanical components, using technical data to drive material selection and cost decisions.</li>
+          <li data-i18n="exp3.b2">Translated simulation outputs into actionable design changes in a competitive, cross-functional team environment.</li>
+        </ul>
+        <div class="timeline-tools"><span class="tag">Ansys FEA</span><span class="tag">Simulation</span><span class="tag">Data-Driven Design</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <script>
-    // Atualiza ano
-    document.getElementById('year').textContent = new Date().getFullYear();
+<!-- CERTIFICATIONS -->
+<section id="certifications" style="padding-top:0">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag" data-i18n="certs.tag">// 05 — certifications</span>
+      <h2 class="section-title" data-i18n="certs.title">Training &amp; Certs</h2>
+    </div>
+    <div class="certs-grid reveal-stagger">
+      <div class="cert-card"><p class="cert-issuer">Alura</p><p class="cert-name" data-i18n="cert1">Formação Data Science</p><p class="cert-year">2025</p></div>
+      <div class="cert-card"><p class="cert-issuer">Alura</p><p class="cert-name" data-i18n="cert2">Formação Deep Learning com PyTorch</p><p class="cert-year">2025</p></div>
+      <div class="cert-card"><p class="cert-issuer">Alura</p><p class="cert-name" data-i18n="cert3">Python Para Data Science</p><p class="cert-year">2025</p></div>
+      <div class="cert-card"><p class="cert-issuer">FM2S</p><p class="cert-name" data-i18n="cert4">Lean Seis Sigma Yellow Belt</p><p class="cert-year">Jul 2024</p></div>
+      <div class="cert-card"><p class="cert-issuer">FM2S</p><p class="cert-name" data-i18n="cert5">Fundamentos da Ciência de Dados</p><p class="cert-year">Ago 2024</p></div>
+      <div class="cert-card"><p class="cert-issuer">Udemy</p><p class="cert-name" data-i18n="cert6">Machine Learning com Python</p><p class="cert-year">Jun 2024</p></div>
+      <div class="cert-card"><p class="cert-issuer">Udemy</p><p class="cert-name" data-i18n="cert7">Detecção de Objetos — Deep Learning</p><p class="cert-year">Jul 2024</p></div>
+      <div class="cert-card"><p class="cert-issuer">EFSET</p><p class="cert-name" data-i18n="cert8">English Certificate C1 Advanced</p><p class="cert-year">2024</p></div>
+    </div>
+  </div>
+</section>
 
-    // Filtro de projetos
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner reveal">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="contact.tag">// 06 — contact</span>
+        <h2 class="section-title" data-i18n="contact.title">Let's Talk</h2>
+        <p class="section-subtitle" data-i18n="contact.sub">Open to junior Data Scientist, ML Engineer, and Data Analyst roles. Available for remote positions across Brazil.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:jvictor3651@gmail.com" class="contact-link"><span class="contact-link-icon">✉️</span><div class="contact-link-content"><strong>Email</strong><span>jvictor3651@gmail.com</span></div><span class="contact-link-arrow">→</span></a>
+        <a href="https://www.linkedin.com/in/joão-victor-assunção-pereira-88a461211" target="_blank" rel="noopener" class="contact-link"><span class="contact-link-icon">💼</span><div class="contact-link-content"><strong>LinkedIn</strong><span>joão-victor-assunção-pereira</span></div><span class="contact-link-arrow">→</span></a>
+        <a href="https://github.com/Felicxio" target="_blank" rel="noopener" class="contact-link"><span class="contact-link-icon">🐙</span><div class="contact-link-content"><strong>GitHub</strong><span>github.com/Felicxio</span></div><span class="contact-link-arrow">→</span></a>
+        <a href="tel:+5534996780246" class="contact-link"><span class="contact-link-icon">📱</span><div class="contact-link-content"><strong>WhatsApp</strong><span>(34) 99678-0246 · Uberlândia, MG</span></div><span class="contact-link-arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p><span data-i18n="footer.built">Built by</span> <a href="https://github.com/Felicxio" target="_blank">João Victor Pereira</a> · GitHub Pages · <span style="color:var(--text-muted)">Python · SQL · Machine Learning · Data Pipelines</span></p>
+  </div>
+</footer>
 
-        const filter = btn.dataset.filter;
+<script>
+/* ============================================================
+   TRANSLATIONS
+============================================================ */
+const T = {
+  en: {
+    'nav.about':'About','nav.projects':'Projects','nav.skills':'Skills','nav.experience':'Experience','nav.contact':'Contact',
+    'hero.tag':'Available for Junior Roles · Brazil',
+    'hero.desc':'Mechatronics engineer turned data professional. I build <strong>end-to-end ML pipelines</strong>, extract real business signals from messy industrial data, and deploy intelligent systems — from predictive models to <strong>LLM-powered multi-agent architectures</strong>.',
+    'hero.cta.projects':'View Projects','hero.cta.contact':'Get in touch',
+    'hero.stat1':'Portfolio Projects','hero.stat2':'Industrial Data Exp.','hero.stat3':'Tools & Frameworks','hero.stat4':'English (EFSET)',
+    'about.tag':'// 01 — about','about.title':'What I Do',
+    'about.p1':'I\'m a <strong>Data Scientist and ML Engineer</strong> with a background in Mechatronics Engineering. That cross-disciplinary foundation means I understand both the physical systems that generate data and the models that extract value from it.',
+    'about.p2':'My focus is on solving real problems: whether that\'s building an <strong>ETL pipeline that feeds a Power BI dashboard</strong>, training a <strong>classification model with Scikit-Learn</strong>, or architecting a <strong>RAG system with LLMs</strong> to make unstructured data searchable.',
+    'about.p3':'I\'ve worked with industrial-scale data in a food processing plant (~5,500 units/day), where the margin for error is narrow and data quality directly impacts operational decisions. That context shapes how I approach every project.',
+    'about.fact1.t':'Mechatronics Engineering — UFU','about.fact1.s':'Universidade Federal de Uberlândia · 2019–2025',
+    'about.fact2.t':'Industrial Data Analysis — Marfrig','about.fact3.t':'ML & Deep Learning Projects',
+    'about.fact4.t':'GenAI & LLM Engineering','about.fact5.s':'Open to remote · Brazil · English C1',
+    'projects.tag':'// 02 — projects','projects.title':'Selected Work','projects.subtitle':'End-to-end projects translating raw data into measurable results.',
+    'project.github':'View on GitHub →',
+    'badge.ml':'Machine Learning','badge.etl':'ETL Pipeline','badge.de':'Data Engineering','badge.eda':'Exploratory Analysis','badge.auto':'Automation',
+    'p1.title':'Spotify Track Genre Classifier',
+    'p1.problem':'Can audio features predict musical genre well enough to automate playlist curation?',
+    'p1.desc':'Developed a multiclass classification pipeline using Python and Scikit-Learn on a dataset of 50k+ Spotify tracks. Applied feature engineering on audio attributes (danceability, energy, valence, tempo) and evaluated multiple algorithms — Logistic Regression, Random Forest, and Gradient Boosting — with cross-validated accuracy metrics. Performed full EDA with Seaborn and Matplotlib to uncover feature correlations before model training.',
+    'p1.impact':'Achieved 87%+ classification accuracy on validation set using a tuned Random Forest model. Demonstrated how structured audio features alone can reliably distinguish between 10 genres — a key insight for recommendation systems engineering.',
+    'p2.title':'Bitcoin Price ETL Pipeline','p2.problem':'Automating real-time crypto data collection into a structured, queryable format.',
+    'p2.desc':'Built a Python-based ETL pipeline that consumes live price data from a public REST API, applies data validation and transformation with Pandas, and persists records to a structured database for downstream analysis. Scheduled runs enable continuous time-series tracking.',
+    'p2.impact':'Automated 100% of data ingestion — eliminated manual extraction and enabled reproducible historical analysis of price volatility trends.',
+    'p3.title':'Northwind Sales ETL & Analytics','p3.problem':'How do you turn a transactional SQL database into business-ready sales KPIs?',
+    'p3.desc':'Designed and implemented a full ETL pipeline over the Northwind relational database using Python and SQL. Extracted and transformed sales, orders, and product data; modeled it into an analytical layer; and produced dashboards-ready aggregations for revenue performance, top products, and regional trends.',
+    'p3.impact':'Reduced ad-hoc query turnaround from manual hours to automated seconds. Produced a clean analytical layer that directly mirrors enterprise BI workflows.',
+    'p4.title':'Global YouTube Statistics 2023 — EDA','p4.problem':'What separates the world\'s top content channels — geography, category, or consistency?',
+    'p4.desc':'Deep-dive EDA on a dataset of 1,000+ top YouTube channels worldwide. Analyzed subscriber growth patterns, view-to-subscriber conversion rates, geographic distribution, and content category dominance. Used Pandas, Seaborn and Plotly for interactive and static visualization.',
+    'p4.impact':'Surfaced that music and entertainment channels dominate views but gaming drives higher per-video engagement — a counterintuitive insight with direct implications for content strategy.',
+    'p5.title':'Python Data Automation Framework','p5.problem':'How do you eliminate repetitive data processing tasks that take hours each week?',
+    'p5.desc':'Built a Python automation system to handle recurring data processing workflows: file ingestion, transformation, validation, and output generation. Applied scheduling and modular design patterns to allow reusable pipeline components across different datasets.',
+    'p5.impact':'Simulated a reduction of 4+ hours/week in manual data preparation time. Architecture mirrors real-world RPA and data workflow automation patterns.',
+    'skills.tag':'// 03 — skills','skills.title':'Technical Stack','skills.subtitle':'Tools I use to take problems from raw data to production-ready solutions.',
+    'skills.lang':'Languages','skills.data':'Data Analysis & Viz','skills.eng':'Data Engineering','skills.dl':'Deep Learning & GenAI','skills.cloud':'Cloud & MLOps',
+    'skill.feateng':'Feature Engineering','skill.valid':'Model Validation','skill.pred':'Predictive Modeling','skill.agent':'Multi-agent Systems',
+    'exp.tag':'// 04 — experience','exp.title':'Work History','exp.units':'units',
+    'exp1.badge':'Internship · Data & Operations','exp1.role':'PCM Data Analyst Intern',
+    'exp1.b1':'Analyzed production and maintenance data at industrial scale using <strong>Power BI, Excel, and SAP</strong>, supporting a critical KPI target of &lt;0.85% downtime rate.',
+    'exp1.b2':'Worked with engineers to prioritize maintenance actions using <strong>historical failure data and budget constraints</strong> — translating raw operational data into prioritized decisions.',
+    'exp1.b3':'Developed Failure Analysis Reports (RAF) with root cause identification using data-driven methods, <strong>reducing recurring equipment failures</strong> and increasing asset reliability.',
+    'exp1.b4':'Contributed data analyses in cross-functional performance meetings, <strong>driving continuous improvement</strong> in production efficiency.',
+    'exp2.badge':'Scientific Research','exp2.role':'Scientific Initiation Researcher','exp2.sub':'Welding & Automation Lab · Petrobras · Belgo',
+    'exp2.b1':'Supported engineering teams on industrial projects for Petrobras, performing <strong>data collection, analysis, and reporting</strong> from laboratory equipment.',
+    'exp2.b2':'Applied data analysis in maintenance and quality validation workflows — building a foundation in <strong>engineering data interpretation</strong> before transitioning to ML roles.',
+    'exp3.badge':'University Extension','exp3.role':'Data & Simulation Analyst',
+    'exp3.b1':'Performed <strong>structural and thermal simulations</strong> to optimize mechanical components, using technical data to drive material selection and cost decisions.',
+    'exp3.b2':'Translated simulation outputs into actionable design changes in a competitive, cross-functional team environment.',
+    'certs.tag':'// 05 — certifications','certs.title':'Training & Certs',
+    'cert1':'Formação Data Science','cert2':'Formação Deep Learning com PyTorch','cert3':'Python Para Data Science',
+    'cert4':'Lean Seis Sigma Yellow Belt','cert5':'Fundamentos da Ciência de Dados','cert6':'Machine Learning com Python',
+    'cert7':'Object Detection — Deep Learning','cert8':'English Certificate C1 Advanced — EFSET',
+    'contact.tag':'// 06 — contact','contact.title':'Let\'s Talk',
+    'contact.sub':'Open to junior Data Scientist, ML Engineer, and Data Analyst roles. Available for remote positions across Brazil.',
+    'footer.built':'Built by',
+  },
+  pt: {
+    'nav.about':'Sobre','nav.projects':'Projetos','nav.skills':'Habilidades','nav.experience':'Experiência','nav.contact':'Contato',
+    'hero.tag':'Disponível para Vagas Júnior · Brasil',
+    'hero.desc':'Engenheiro Mecatrônico que virou profissional de dados. Construo <strong>pipelines de ML end-to-end</strong>, extraio sinais reais de negócio de dados industriais complexos e desenvolvo sistemas inteligentes — de modelos preditivos a <strong>arquiteturas multi-agentes com LLMs</strong>.',
+    'hero.cta.projects':'Ver Projetos','hero.cta.contact':'Entrar em contato',
+    'hero.stat1':'Projetos no Portfólio','hero.stat2':'Exp. em Dados Industriais','hero.stat3':'Ferramentas & Frameworks','hero.stat4':'Inglês (EFSET)',
+    'about.tag':'// 01 — sobre','about.title':'O que eu faço',
+    'about.p1':'Sou <strong>Cientista de Dados e Engenheiro de ML</strong> com formação em Engenharia Mecatrônica. Essa base multidisciplinar me permite entender tanto os sistemas físicos que geram dados quanto os modelos que extraem valor deles.',
+    'about.p2':'Meu foco é resolver problemas reais: seja construindo um <strong>pipeline ETL que alimenta um dashboard Power BI</strong>, treinando um <strong>modelo de classificação com Scikit-Learn</strong>, ou arquitetando um <strong>sistema RAG com LLMs</strong> para tornar dados não estruturados pesquisáveis.',
+    'about.p3':'Trabalhei com dados em escala industrial em uma planta de processamento de alimentos (~5.500 unidades/dia), onde a margem de erro é estreita e a qualidade dos dados impacta diretamente as decisões operacionais. Esse contexto molda minha abordagem em cada projeto.',
+    'about.fact1.t':'Engenharia Mecatrônica — UFU','about.fact1.s':'Universidade Federal de Uberlândia · 2019–2025',
+    'about.fact2.t':'Análise de Dados Industrial — Marfrig','about.fact3.t':'Projetos de ML & Deep Learning',
+    'about.fact4.t':'GenAI & Engenharia de LLMs','about.fact5.s':'Aberto a remoto · Brasil · Inglês C1',
+    'projects.tag':'// 02 — projetos','projects.title':'Trabalhos Selecionados','projects.subtitle':'Projetos end-to-end que transformam dados brutos em resultados mensuráveis.',
+    'project.github':'Ver no GitHub →',
+    'badge.ml':'Machine Learning','badge.etl':'Pipeline ETL','badge.de':'Engenharia de Dados','badge.eda':'Análise Exploratória','badge.auto':'Automação',
+    'p1.title':'Classificador de Gênero Musical — Spotify',
+    'p1.problem':'Atributos de áudio conseguem prever o gênero musical com precisão suficiente para automatizar curadoria de playlists?',
+    'p1.desc':'Desenvolvi um pipeline de classificação multiclasse com Python e Scikit-Learn em um dataset com 50k+ faixas do Spotify. Apliquei feature engineering em atributos de áudio (danceability, energy, valence, tempo) e avaliei múltiplos algoritmos — Regressão Logística, Random Forest e Gradient Boosting — com métricas de acurácia via cross-validation. Realizei EDA completa com Seaborn e Matplotlib para identificar correlações entre features antes do treinamento.',
+    'p1.impact':'Alcancei 87%+ de acurácia no conjunto de validação com Random Forest otimizado. Demonstrei que atributos de áudio estruturados conseguem distinguir com confiança entre 10 gêneros — um insight direto para sistemas de recomendação.',
+    'p2.title':'Pipeline ETL — Preço do Bitcoin','p2.problem':'Como automatizar a coleta de dados cripto em tempo real em formato estruturado e consultável?',
+    'p2.desc':'Construí um pipeline ETL em Python que consome dados de preço em tempo real de uma API REST pública, aplica validação e transformação com Pandas, e persiste os registros em banco estruturado para análise downstream. Execuções agendadas permitem rastreamento contínuo de séries temporais.',
+    'p2.impact':'Automatizei 100% da ingestão de dados — eliminou extração manual e viabilizou análise histórica reproduzível de tendências de volatilidade.',
+    'p3.title':'ETL & Analytics — Northwind Sales','p3.problem':'Como transformar um banco de dados SQL transacional em KPIs de vendas prontos para o negócio?',
+    'p3.desc':'Projetei e implementei um pipeline ETL completo sobre o banco relacional Northwind usando Python e SQL. Extraí e transformei dados de vendas, pedidos e produtos; modelei uma camada analítica; e gerei agregações prontas para dashboards de performance de receita, top produtos e tendências regionais.',
+    'p3.impact':'Reduzi o tempo de consultas ad-hoc de horas manuais para segundos automatizados. Produzi uma camada analítica limpa que espelha workflows reais de BI empresarial.',
+    'p4.title':'Estatísticas Globais do YouTube 2023 — EDA','p4.problem':'O que separa os maiores canais do mundo — geografia, categoria ou consistência?',
+    'p4.desc':'EDA aprofundada em dataset com 1.000+ dos principais canais do YouTube no mundo. Analisei padrões de crescimento de inscritos, taxas de conversão views/inscritos, distribuição geográfica e dominância por categoria de conteúdo. Usei Pandas, Seaborn e Plotly para visualizações interativas e estáticas.',
+    'p4.impact':'Identifiquei que canais de música e entretenimento dominam em views, mas gaming gera maior engajamento por vídeo — insight contraintuitivo com implicações diretas para estratégia de conteúdo.',
+    'p5.title':'Framework de Automação de Dados — Python','p5.problem':'Como eliminar tarefas repetitivas de processamento de dados que consomem horas por semana?',
+    'p5.desc':'Construí um sistema de automação em Python para workflows recorrentes de processamento: ingestão de arquivos, transformação, validação e geração de outputs. Apliquei padrões de design modular e agendamento para permitir componentes de pipeline reutilizáveis em diferentes datasets.',
+    'p5.impact':'Simulei redução de 4+ horas/semana em preparação manual de dados. A arquitetura espelha padrões reais de RPA e automação de workflows de dados.',
+    'skills.tag':'// 03 — habilidades','skills.title':'Stack Técnica','skills.subtitle':'Ferramentas que uso para ir do dado bruto a soluções prontas para produção.',
+    'skills.lang':'Linguagens','skills.data':'Análise & Visualização','skills.eng':'Engenharia de Dados','skills.dl':'Deep Learning & GenAI','skills.cloud':'Cloud & MLOps',
+    'skill.feateng':'Feature Engineering','skill.valid':'Validação de Modelos','skill.pred':'Modelagem Preditiva','skill.agent':'Sistemas Multi-agentes',
+    'exp.tag':'// 04 — experiência','exp.title':'Histórico Profissional','exp.units':'unidades',
+    'exp1.badge':'Estágio · Dados & Operações','exp1.role':'Estagiário de PCM — Analista de Dados',
+    'exp1.b1':'Analisei dados de produção e manutenção em escala industrial usando <strong>Power BI, Excel e SAP</strong>, contribuindo para a meta crítica de &lt;0,85% de tempo de parada.',
+    'exp1.b2':'Trabalhei com engenheiros na priorização de ações de manutenção usando <strong>histórico de falhas e restrições orçamentárias</strong> — traduzindo dados operacionais brutos em decisões priorizadas.',
+    'exp1.b3':'Desenvolvi Relatórios de Análise de Falhas (RAF) com identificação de causa raiz por métodos orientados a dados, <strong>reduzindo recorrência de falhas</strong> e aumentando confiabilidade dos equipamentos.',
+    'exp1.b4':'Contribuí com análises de dados em reuniões de performance interfuncionais, <strong>impulsionando melhorias contínuas</strong> na eficiência dos processos produtivos.',
+    'exp2.badge':'Pesquisa Científica','exp2.role':'Pesquisador de Iniciação Científica','exp2.sub':'Lab. de Soldagem & Automação · Petrobras · Belgo',
+    'exp2.b1':'Apoiei equipes de engenharia em projetos industriais para a Petrobras, realizando <strong>coleta, análise e reporte de dados</strong> de equipamentos de laboratório.',
+    'exp2.b2':'Apliquei análise de dados em fluxos de manutenção e validação de qualidade — construindo base em <strong>interpretação de dados de engenharia</strong> antes da transição para funções de ML.',
+    'exp3.badge':'Extensão Universitária','exp3.role':'Analista de Dados & Simulação',
+    'exp3.b1':'Realizei <strong>simulações analíticas de resistência e térmica</strong> para otimizar componentes mecânicos, usando dados técnicos para embasar seleção de materiais e decisões de custo.',
+    'exp3.b2':'Traduzi resultados de simulação em mudanças de projeto acionáveis em ambiente de equipe competitivo e multidisciplinar.',
+    'certs.tag':'// 05 — certificações','certs.title':'Formações & Certs',
+    'cert1':'Formação Data Science','cert2':'Formação Deep Learning com PyTorch','cert3':'Python Para Data Science',
+    'cert4':'Certificação Lean Seis Sigma Yellow Belt','cert5':'Fundamentos da Ciência de Dados',
+    'cert6':'Machine Learning com Python','cert7':'Detecção de Objetos — Deep Learning','cert8':'Certificado de Inglês C1 Advanced — EFSET',
+    'contact.tag':'// 06 — contato','contact.title':'Vamos Conversar',
+    'contact.sub':'Aberto a vagas júnior de Cientista de Dados, Engenheiro de ML e Analista de Dados. Disponível para posições remotas em todo o Brasil.',
+    'footer.built':'Desenvolvido por',
+  }
+};
 
-        projectCards.forEach(card => {
-          const categories = (card.dataset.category || '').split(' ');
-          if (filter === 'all' || categories.includes(filter)) {
-            card.style.display = 'block';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
+/* ============================================================
+   LANGUAGE ENGINE
+============================================================ */
+let lang = 'en';
+
+function setLang(l) {
+  if (l === lang) return;
+  lang = l;
+  document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+  document.getElementById('btnEN').classList.toggle('active', l === 'en');
+  document.getElementById('btnPT').classList.toggle('active', l === 'pt');
+  const dict = T[l];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (dict[k] !== undefined) el.innerHTML = dict[k];
+  });
+  try { localStorage.setItem('jv-lang', l); } catch(e) {}
+}
+
+/* ============================================================
+   SCROLL REVEAL
+============================================================ */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => obs.observe(el));
+
+/* ============================================================
+   NAV SCROLL + ACTIVE LINKS
+============================================================ */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => { navbar.style.borderBottomColor = scrollY > 40 ? 'rgba(30,45,66,.8)' : 'var(--border)'; }, { passive: true });
+const navLinks = document.querySelectorAll('.nav-links a');
+document.querySelectorAll('section[id]').forEach(s => {
+  new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#'+e.target.id ? 'var(--accent)' : ''; });
     });
+  }, { threshold: 0.4 }).observe(s);
+});
 
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const target = document.querySelector(this.getAttribute('href'));
-        if (!target) return;
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-
-    // Intersection Observer para animações de entrada
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-
-    // Observe skill cards
-    document.querySelectorAll('.skill-card').forEach((card, index) => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(30px)';
-      card.style.transition = `all 0.6s ease ${index * 0.08}s`;
-      observer.observe(card);
-    });
-
-    // Observe project cards
-    document.querySelectorAll('.project-card').forEach((card, index) => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(30px)';
-      card.style.transition = `all 0.6s ease ${index * 0.08}s`;
-      observer.observe(card);
-    });
-
-    // Parallax leve para hero card
-    const heroCard = document.querySelector('.hero-card');
-    window.addEventListener('mousemove', (e) => {
-      if (!heroCard) return;
-      const { left, top, width, height } = heroCard.getBoundingClientRect();
-      const centerX = left + width / 2;
-      const centerY = top + height / 2;
-      const maxRotate = 8;
-      const deltaX = ((e.clientX - centerX) / width) * maxRotate;
-      const deltaY = ((e.clientY - centerY) / height) * maxRotate;
-
-      heroCard.style.transform = `perspective(900px) rotateY(${deltaX}deg) rotateX(${-deltaY}deg)`;
-    });
-  </script>
+/* ============================================================
+   INIT
+============================================================ */
+try { const saved = localStorage.getItem('jv-lang'); if (saved === 'pt') setLang('pt'); } catch(e) {}
+</script>
 </body>
 </html>
